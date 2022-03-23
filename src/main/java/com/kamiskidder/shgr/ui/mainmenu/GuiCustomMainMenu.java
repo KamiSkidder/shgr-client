@@ -1,11 +1,21 @@
 package com.kamiskidder.shgr.ui.mainmenu;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.imageio.ImageIO;
+
+import org.lwjgl.opengl.GL11;
+
 import com.kamiskidder.shgr.SHGR;
 import com.kamiskidder.shgr.manager.FontManager;
 import com.kamiskidder.shgr.manager.MainMenuManager;
 import com.kamiskidder.shgr.ui.font.CFontRenderer;
 import com.kamiskidder.shgr.util.client.MathUtil;
 import com.kamiskidder.shgr.util.render.ColorUtil;
+import com.kamiskidder.shgr.util.render.RenderUtil;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -21,12 +31,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.GuiModList;
-import org.lwjgl.opengl.GL11;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GuiCustomMainMenu extends GuiScreen {
     private final CopyOnWriteArrayList<Fish> fish = new CopyOnWriteArrayList<>();
@@ -263,7 +267,8 @@ public class GuiCustomMainMenu extends GuiScreen {
     private void drawGUI(float mouseX, float mouseY, float rw, float rh,
                          float width, float height) {
         drawRect(0, 0, 140 * rw, (int) height, ColorUtil.toRGBA(255, 255, 255));
-
+        RenderUtil.drawGradientRect(140*rw, 0, 145*rw, (int)height, ColorUtil.toRGBA(0, 0, 0, 50), ColorUtil.toRGBA(0, 0, 0, 0), ColorUtil.toRGBA(0, 0, 0, 50), ColorUtil.toRGBA(0, 0, 0, 0));
+        
         drawString(FontManager.helvetica1, "SHGR", -25.0f, 5.0f, ColorUtil.toRGBA(200, 200, 200), rw, rh);
         drawString(FontManager.helvetica3, "v " + SHGR.MOD_VERSION, 79f, 23.0f, ColorUtil.toRGBA(50, 50, 50), rw, rh);
 
