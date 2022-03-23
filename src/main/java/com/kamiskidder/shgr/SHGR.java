@@ -1,18 +1,23 @@
 package com.kamiskidder.shgr;
 
-import com.kamiskidder.shgr.manager.*;
-import com.kamiskidder.shgr.ui.mainmenu.GuiCustomMainMenu;
-import com.kamiskidder.shgr.util.client.EventUtil;
-import com.kamiskidder.shgr.util.client.LogUtil;
-import com.mojang.realmsclient.gui.ChatFormatting;
-import net.minecraft.client.gui.GuiMainMenu;
-import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
+
+import com.kamiskidder.shgr.manager.CommandManager;
+import com.kamiskidder.shgr.manager.ConfigManager;
+import com.kamiskidder.shgr.manager.FontManager;
+import com.kamiskidder.shgr.manager.FriendManager;
+import com.kamiskidder.shgr.manager.MainMenuManager;
+import com.kamiskidder.shgr.manager.ModuleManager;
+import com.kamiskidder.shgr.manager.NotificationManager;
+import com.kamiskidder.shgr.manager.RotateManager;
+import com.kamiskidder.shgr.util.client.EventUtil;
+import com.kamiskidder.shgr.util.client.LogUtil;
+import com.mojang.realmsclient.gui.ChatFormatting;
+
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 @Mod(modid = SHGR.MOD_ID, name = SHGR.MOD_NAME, version = SHGR.MOD_VERSION)
 public class SHGR {
@@ -53,10 +58,12 @@ public class SHGR {
         EventUtil.register(this);
     }
 
+    /*
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
         if (event.getGui() instanceof GuiMainMenu) {
             event.setGui(new GuiCustomMainMenu());
         }
     }
+    */
 }
