@@ -68,6 +68,7 @@ public class ModuleManager implements Util {
         register(new Waypoints());
         register(new Nametags());
         register(new StorageESP());
+        register(new BlockHighlight());
 
         EventUtil.register(this);
     }
