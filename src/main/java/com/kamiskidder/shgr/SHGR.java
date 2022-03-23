@@ -12,12 +12,16 @@ import com.kamiskidder.shgr.manager.MainMenuManager;
 import com.kamiskidder.shgr.manager.ModuleManager;
 import com.kamiskidder.shgr.manager.NotificationManager;
 import com.kamiskidder.shgr.manager.RotateManager;
+import com.kamiskidder.shgr.ui.mainmenu.GuiCustomMainMenu;
 import com.kamiskidder.shgr.util.client.EventUtil;
 import com.kamiskidder.shgr.util.client.LogUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
 
+import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(modid = SHGR.MOD_ID, name = SHGR.MOD_NAME, version = SHGR.MOD_VERSION)
 public class SHGR {
@@ -52,18 +56,16 @@ public class SHGR {
         mainMenuManager = new MainMenuManager();
         ConfigManager.load();
         FriendManager.load();
-        //mainMenuManager.init();
+        mainMenuManager.init();
         LogUtil.info(MOD_NAME + "Client started!");
 
         EventUtil.register(this);
     }
 
-    /*
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
-        if (event.getGui() instanceof GuiMainMenu) {
+        if (event.getGui() instanceof GuiMainMenu && MainMenuManager.canDrawMainMenu) {
             event.setGui(new GuiCustomMainMenu());
         }
     }
-    */
 }
