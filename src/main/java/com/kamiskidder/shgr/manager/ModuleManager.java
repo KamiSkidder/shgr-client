@@ -47,6 +47,7 @@ public class ModuleManager implements Util {
         register(new Sprint());
         register(new NoPush());
         register(new EntitySpeed());
+        register(new Step());
         //misc
         register(new AutoDupe());
         register(new LagbackLogger());
@@ -55,6 +56,8 @@ public class ModuleManager implements Util {
         register(new Breaker());
         register(new BoatAura());
         register(new TimeChanger());
+        register(new ChatSuffix());
+        register(new FastUse());
         //render
         register(new ClickGui());
         register(new FullBright());
@@ -65,6 +68,7 @@ public class ModuleManager implements Util {
         register(new Waypoints());
         register(new Nametags());
         register(new StorageESP());
+        register(new BlockHighlight());
 
         EventUtil.register(this);
     }
