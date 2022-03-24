@@ -13,7 +13,7 @@ public class Timer extends Module {
 
     @Override
     public void onTick() {
-        mc.timer.tickLength = 50 * timer.getValue();
+        mc.timer.tickLength = 50 / timer.getValue();
     }
 
     @Override

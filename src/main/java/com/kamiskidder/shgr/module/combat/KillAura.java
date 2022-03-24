@@ -1,5 +1,9 @@
 package com.kamiskidder.shgr.module.combat;
 
+import java.awt.Color;
+import java.util.Comparator;
+import java.util.Objects;
+
 import com.kamiskidder.shgr.event.player.UpdateWalkingPlayerEvent;
 import com.kamiskidder.shgr.manager.FriendManager;
 import com.kamiskidder.shgr.manager.RotateManager;
@@ -10,6 +14,7 @@ import com.kamiskidder.shgr.util.client.Timer;
 import com.kamiskidder.shgr.util.entity.EntityType;
 import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityVillager;
@@ -18,10 +23,6 @@ import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.awt.*;
-import java.util.Comparator;
-import java.util.Objects;
 
 public class KillAura extends Module {
     public static KillAura INSTANCE;
@@ -84,8 +85,11 @@ public class KillAura extends Module {
                 return;
             }
 
-            if (!player.getValue() && target instanceof EntityPlayer)
-                target = null;
+            if (!player.getValue() && target instanceof EntityPlayer){
+                EntityPlayer f = (EntityPlayer)target;
+                if (f.getDisplayNameString().equalsIgnoreCase(mc.player.getDisplayNameString()))
+                    target = null;
+            }
             if (!monster.getValue() && EntityType.isMonster(target))
                 target = null;
             if (!neutral.getValue() && EntityType.isNeutral(target))
@@ -106,14 +110,14 @@ public class KillAura extends Module {
             return false;
         }
 
-        if (e.entityId == mc.player.entityId)
+        if (e.entityId == mc.player.entityId || e.entityId < 0)
             return false;
 
         if (Objects.equals(e, mc.player.ridingEntity))
             return false;
 
-        if (player.getValue() && e instanceof EntityPlayer && !FriendManager.isFriend((EntityPlayer) e))
-            return true;
+        if (player.getValue() && e instanceof EntityPlayer && !FriendManager.isFriend((EntityPlayer) e)) 
+        	return true;
         if (monster.getValue() && EntityType.isMonster(e))
             return true;
         if (neutral.getValue() && EntityType.isNeutral(e))
