@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import com.kamiskidder.shgr.module.misc.*;
 import org.lwjgl.input.Keyboard;
 
 import com.kamiskidder.shgr.module.Category;
@@ -14,15 +15,6 @@ import com.kamiskidder.shgr.module.combat.KillAura;
 import com.kamiskidder.shgr.module.combat.Velocity;
 import com.kamiskidder.shgr.module.exploit.PacketFly;
 import com.kamiskidder.shgr.module.exploit.XCarry;
-import com.kamiskidder.shgr.module.misc.AutoDupe;
-import com.kamiskidder.shgr.module.misc.BoatAura;
-import com.kamiskidder.shgr.module.misc.Breaker;
-import com.kamiskidder.shgr.module.misc.ChatSuffix;
-import com.kamiskidder.shgr.module.misc.FakePlayer;
-import com.kamiskidder.shgr.module.misc.FastUse;
-import com.kamiskidder.shgr.module.misc.LagbackLogger;
-import com.kamiskidder.shgr.module.misc.TimeChanger;
-import com.kamiskidder.shgr.module.misc.TunnelAssist;
 import com.kamiskidder.shgr.module.movement.AutoWalk;
 import com.kamiskidder.shgr.module.movement.BoatFly;
 import com.kamiskidder.shgr.module.movement.EntitySpeed;
@@ -88,6 +80,7 @@ public class ModuleManager implements Util {
         register(new TimeChanger());
         register(new ChatSuffix());
         register(new FastUse());
+        register(new Timer());
         //render
         register(new ClickGui());
         register(new FullBright());

@@ -1,5 +1,6 @@
 package com.kamiskidder.shgr.module.misc;
 
+import com.kamiskidder.shgr.event.client.KeyboardUpdateEvent;
 import com.kamiskidder.shgr.event.player.UpdatePlayerEvent;
 import com.kamiskidder.shgr.manager.RotateManager;
 import com.kamiskidder.shgr.module.Category;
@@ -47,7 +48,7 @@ public class Breaker extends Module {
     }
 
     @SubscribeEvent
-    public void onUpdate(UpdatePlayerEvent event) {
+    public void onKeyboardUpdate(KeyboardUpdateEvent event) {
         if (nullCheck())
             return;
 
