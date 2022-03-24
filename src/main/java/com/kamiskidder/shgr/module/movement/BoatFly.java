@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class BoatFly extends Module {
     public Setting<String> type = register(new Setting("Type", new String[]{"Normal", "Teleport"}));
     public Setting<Float> speed = register(new Setting("Speed", 2.0F, 10.0F, 0.1F));
-    public Setting<Float> ySpeed = register(new Setting("YSpeed", 1.0F, 10.0F, 0.1F));
+    public Setting<Float> ySpeed = register(new Setting("Y Speed", 1.0F, 10.0F, 0.1F));
     public Setting<Float> glide = register(new Setting("Glide", 0.0F, 3.0F, 0.0F));
 
     public BoatFly() {

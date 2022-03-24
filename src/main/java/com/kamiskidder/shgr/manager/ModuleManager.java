@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import com.kamiskidder.shgr.module.misc.*;
+import com.kamiskidder.shgr.module.render.*;
 import org.lwjgl.input.Keyboard;
 
 import com.kamiskidder.shgr.module.Category;
@@ -25,16 +26,6 @@ import com.kamiskidder.shgr.module.movement.NoRotate;
 import com.kamiskidder.shgr.module.movement.NoSlow;
 import com.kamiskidder.shgr.module.movement.Sprint;
 import com.kamiskidder.shgr.module.movement.Step;
-import com.kamiskidder.shgr.module.render.BlockHighlight;
-import com.kamiskidder.shgr.module.render.CameraClip;
-import com.kamiskidder.shgr.module.render.ClickGui;
-import com.kamiskidder.shgr.module.render.ESP;
-import com.kamiskidder.shgr.module.render.FullBright;
-import com.kamiskidder.shgr.module.render.HudEditor;
-import com.kamiskidder.shgr.module.render.Nametags;
-import com.kamiskidder.shgr.module.render.Notification;
-import com.kamiskidder.shgr.module.render.StorageESP;
-import com.kamiskidder.shgr.module.render.Waypoints;
 import com.kamiskidder.shgr.util.Util;
 import com.kamiskidder.shgr.util.client.EventUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
@@ -92,6 +83,7 @@ public class ModuleManager implements Util {
         register(new Nametags());
         register(new StorageESP());
         register(new BlockHighlight());
+        register(new Freecam());
 
         EventUtil.register(this);
     }

@@ -1,13 +1,18 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
-import com.kamiskidder.shgr.module.movement.NoPush;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MoverType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.kamiskidder.shgr.module.movement.NoPush;
+import com.kamiskidder.shgr.module.render.Freecam;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.MoverType;
+import net.minecraft.util.math.AxisAlignedBB;
 
 @Mixin(Entity.class)
 public abstract class MixinEntity {
@@ -34,21 +39,24 @@ public abstract class MixinEntity {
         }
     }
 
-    /*
-    @Inject(method = "isInWater()Z", at = @At("HEAD"), cancellable = true)
-    public void isInWater(CallbackInfoReturnable<Boolean> cir) {
-        if (NoPush.INSTANCE.isToggled() && NoPush.INSTANCE.liquid.getValue()) {
-            cir.setReturnValue(false);
-            cir.cancel();
-        }
+    @Redirect(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/AxisAlignedBB;calculateXOffset(Lnet/minecraft/util/math/AxisAlignedBB;D)D"))
+    public double calculateXOffset(AxisAlignedBB instance, AxisAlignedBB bb, double d) {
+        if (Freecam.INSTANCE.isToggled())
+            return d;
+        return instance.calculateXOffset(bb, d);
     }
 
-    @Inject(method = "isInLava()Z", at = @At("HEAD"), cancellable = true)
-    public void isInLava(CallbackInfoReturnable<Boolean> cir) {
-        if (NoPush.INSTANCE.isToggled() && NoPush.INSTANCE.liquid.getValue()) {
-            cir.setReturnValue(false);
-            cir.cancel();
-        }
+    @Redirect(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/AxisAlignedBB;calculateYOffset(Lnet/minecraft/util/math/AxisAlignedBB;D)D"))
+    public double calculateYOffset(AxisAlignedBB instance, AxisAlignedBB bb, double d) {
+        if (Freecam.INSTANCE.isToggled())
+            return d;
+        return instance.calculateYOffset(bb, d);
     }
-     */
+    
+    @Redirect(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/AxisAlignedBB;calculateZOffset(Lnet/minecraft/util/math/AxisAlignedBB;D)D"))
+    public double calculateZOffset(AxisAlignedBB instance, AxisAlignedBB bb, double d) {
+        if (Freecam.INSTANCE.isToggled())
+            return d;
+        return instance.calculateZOffset(bb, d);
+    }
 }
