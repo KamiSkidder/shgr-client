@@ -1,12 +1,13 @@
 package com.kamiskidder.shgr.module.render;
 
+import java.awt.Color;
+
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
 import com.kamiskidder.shgr.util.render.RenderUtil;
-import net.minecraft.util.math.RayTraceResult;
 
-import java.awt.*;
+import net.minecraft.util.math.RayTraceResult;
 
 public class BlockHighlight extends Module {
 

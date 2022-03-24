@@ -1,9 +1,11 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
+import com.kamiskidder.shgr.event.client.KeyboardUpdateEvent;
 import com.kamiskidder.shgr.manager.ConfigManager;
 import com.kamiskidder.shgr.manager.FriendManager;
 import com.kamiskidder.shgr.ui.mainmenu.GuiCustomMainMenu;
 import com.kamiskidder.shgr.util.Util;
+import com.kamiskidder.shgr.util.client.EventUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +19,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinMinecraft implements Util {
     @Shadow
     public GameSettings gameSettings;
+
+    @Inject(method = "runTickKeyboard()V", at = @At("HEAD"))
+    public void onKeyboardUpdate(CallbackInfo ci) {
+        EventUtil.post(new KeyboardUpdateEvent());
+    }
 
     @Inject(method = "getLimitFramerate()I", at = @At("RETURN"), cancellable = true)
     public void getLimitFramerate(CallbackInfoReturnable<Integer> cir) {
