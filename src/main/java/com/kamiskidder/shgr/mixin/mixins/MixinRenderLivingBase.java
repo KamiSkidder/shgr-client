@@ -1,7 +1,9 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
 import com.kamiskidder.shgr.module.combat.KillAura;
+import com.kamiskidder.shgr.module.render.AntiCollision;
 import com.kamiskidder.shgr.module.render.Freecam;
+import com.kamiskidder.shgr.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -9,6 +11,8 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EntitySelectors;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,10 +23,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.awt.*;
 import java.nio.FloatBuffer;
+import java.util.List;
 import java.util.Objects;
 
 @Mixin(RenderLivingBase.class)
-public abstract class MixinRenderLivingBase {
+public abstract class MixinRenderLivingBase implements Util {
     @Final
     @Shadow
     private static DynamicTexture TEXTURE_BRIGHTNESS;
@@ -31,6 +36,20 @@ public abstract class MixinRenderLivingBase {
 
     @Shadow
     protected abstract void unsetBrightness();
+
+    @Inject(method = "renderModel", at = @At("HEAD"))
+    public void renderModel(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, CallbackInfo ci) {
+        if (AntiCollision.INSTANCE.isToggled() && mc.player.getDistance(entitylivingbaseIn) < 1 && entitylivingbaseIn != mc.player) {
+            GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+        }
+    }
+
+    @Inject(method = "renderLayers", at = @At("HEAD"), cancellable = true)
+    public void renderLayers(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scaleIn, CallbackInfo callbackInfo) {
+        if (AntiCollision.INSTANCE.isToggled() && mc.player.getDistance(entitylivingbaseIn) < 1 && entitylivingbaseIn != mc.player) {
+            callbackInfo.cancel();
+        }
+    }
 
     @Inject(method = "doRender(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V", at = @At("HEAD"), cancellable = true)
     public void doRender(EntityLivingBase f3, double flag1, double flag, double f, float f1, float f2, CallbackInfo ci) {

@@ -84,6 +84,7 @@ public class ModuleManager implements Util {
         register(new StorageESP());
         register(new BlockHighlight());
         register(new Freecam());
+        register(new AntiCollision());
 
         EventUtil.register(this);
     }
