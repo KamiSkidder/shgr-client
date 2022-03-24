@@ -61,7 +61,7 @@ public abstract class MixinRenderLivingBase implements Util {
     public void setBrightness(EntityLivingBase entity, double x, double y, double z, float entityYaw, float partialTicks, CallbackInfo ci) {
         if (isTarget(entity)) {
             Color color = KillAura.INSTANCE.color.getValue();
-            setEntityBrightness(color.getRed(), color.getBlue(), color.getBlue(), color.getAlpha());
+            setEntityBrightness(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
         }
     }
 
