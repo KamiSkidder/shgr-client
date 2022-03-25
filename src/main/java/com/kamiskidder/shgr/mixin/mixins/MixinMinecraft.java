@@ -20,7 +20,7 @@ public abstract class MixinMinecraft implements Util {
     @Shadow
     public GameSettings gameSettings;
 
-    @Inject(method = "runTickKeyboard()V", at = @At("HEAD"))
+    @Inject(method = "runTick()V", at = @At("HEAD"))
     public void onKeyboardUpdate(CallbackInfo ci) {
         EventUtil.post(new KeyboardUpdateEvent());
     }
