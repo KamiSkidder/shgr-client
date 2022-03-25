@@ -1,14 +1,16 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
-import com.kamiskidder.shgr.manager.RotateManager;
-import com.kamiskidder.shgr.module.render.Nametags;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.kamiskidder.shgr.manager.RotateManager;
+import com.kamiskidder.shgr.module.render.Nametags;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 
 @Mixin(RenderPlayer.class)
 public class MixinRenderPlayer {
@@ -19,6 +21,8 @@ public class MixinRenderPlayer {
     private float prevRenderPitch;
     private float prevRenderYawOffset;
     private float prevPrevRenderYawOffset;
+    private float rotationPitch;
+    private float prevRotationPitch;
 
     @Inject(method = "renderEntityName(Lnet/minecraft/client/entity/AbstractClientPlayer;DDDLjava/lang/String;D)V", at = @At("HEAD"), cancellable = true)
     public void renderName(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq, CallbackInfo info) {
@@ -36,13 +40,18 @@ public class MixinRenderPlayer {
             this.renderHeadYaw = entity.rotationYawHead;
             this.prevPrevRenderYawOffset = entity.prevRenderYawOffset;
             this.prevRenderYawOffset = entity.renderYawOffset;
+            this.rotationPitch = entity.rotationPitch;
+            this.prevRotationPitch = entity.prevRotationPitch;
             if (RotateManager.isRotating()) {
                 float yaw = RotateManager.getYaw();
+                float pitch = RotateManager.getPitch();
                 entity.rotationYaw = yaw;
                 entity.rotationYawHead = yaw;
                 entity.prevRotationYawHead = yaw;
                 entity.prevRenderYawOffset = yaw;
                 entity.renderYawOffset = yaw;
+                entity.rotationPitch = pitch;
+                entity.prevRotationPitch = pitch;
             }
         }
     }
@@ -59,6 +68,8 @@ public class MixinRenderPlayer {
             entity.prevRotationYawHead = this.prevRenderHeadYaw;
             entity.renderYawOffset = this.prevRenderYawOffset;
             entity.prevRenderYawOffset = this.prevPrevRenderYawOffset;
+            entity.rotationPitch = rotationPitch;
+            entity.prevRotationPitch = prevRotationPitch;
         }
     }
 }
