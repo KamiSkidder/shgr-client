@@ -234,10 +234,11 @@ public class GuiCustomMainMenu extends GuiScreen {
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         //left click
         if (mouseButton == 0) {
-            handleButton(mouseX, mouseY, 0, 45, 140, 64, new GuiWorldSelection(this));
-            handleButton(mouseX, mouseY, 0, 70, 140, 89, new GuiMultiplayer(this));
-            handleButton(mouseX, mouseY, 0, 95, 140, 114, new GuiModList(this));
-            handleButton(mouseX, mouseY, 0, 120, 140, 139, new GuiOptions(this, this.mc.gameSettings));
+            GuiCustomMainMenu instance = new GuiCustomMainMenu();
+            handleButton(mouseX, mouseY, 0, 45, 140, 64, new GuiWorldSelection(instance));
+            handleButton(mouseX, mouseY, 0, 70, 140, 89, new GuiMultiplayer(instance));
+            handleButton(mouseX, mouseY, 0, 95, 140, 114, new GuiModList(instance));
+            handleButton(mouseX, mouseY, 0, 120, 140, 139, new GuiOptions(instance, this.mc.gameSettings));
             handleExit(mouseX, mouseY);
         }
     }
