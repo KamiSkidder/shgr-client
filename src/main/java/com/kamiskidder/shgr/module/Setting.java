@@ -68,6 +68,10 @@ public class Setting<T> {
         return minValue;
     }
 
+    public void setMaxValue(T value) {
+        this.maxValue = value;
+    }
+
     public String[] getValues() {
         return values;
     }

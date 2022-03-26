@@ -1,20 +1,21 @@
 package com.kamiskidder.shgr.util.render;
 
+import static org.lwjgl.opengl.GL11.*;
+
+import java.awt.Color;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL32;
+
 import com.kamiskidder.shgr.ui.font.CFontRenderer;
 import com.kamiskidder.shgr.util.Util;
+
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL32;
-
-import java.awt.*;
-
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glHint;
 
 public class RenderUtil implements Util {
     public static void drawRect(float x1, float y1, float x2, float y2, int color) {
@@ -30,7 +31,7 @@ public class RenderUtil implements Util {
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
         bufferbuilder.pos(x1, y2, 0.0).color(red, green, blue, alpha).endVertex();
         bufferbuilder.pos(x2, y2, 0.0).color(red, green, blue, alpha).endVertex();
-        bufferbuilder.pos(x1, y1, 0.0).color(red, green, blue, alpha).endVertex();
+        bufferbuilder.pos(x2, y1, 0.0).color(red, green, blue, alpha).endVertex();
         bufferbuilder.pos(x1, y1, 0.0).color(red, green, blue, alpha).endVertex();
         tessellator.draw();
         GlStateManager.enableTexture2D();

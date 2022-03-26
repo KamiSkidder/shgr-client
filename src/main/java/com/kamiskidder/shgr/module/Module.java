@@ -40,6 +40,9 @@ public class Module extends Base {
     public void onUpdate() {
     }
 
+    public void onRender2D() {
+    }
+
     public void onRender3D() {
     }
 
