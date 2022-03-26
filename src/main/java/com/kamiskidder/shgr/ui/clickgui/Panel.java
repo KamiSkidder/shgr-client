@@ -11,8 +11,11 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class Panel extends Component {
-    private final List<ModuleButton> buttons = new ArrayList<>();
     public Category category;
+
+    private final List<ModuleButton> buttons = new ArrayList<>();
+    private boolean dragging = false;
+    private int diffX, diffY = 0;
 
     public Panel(Category category, int x, int y) {
         this.category = category;
@@ -25,6 +28,11 @@ public class Panel extends Component {
     }
 
     public void renderPanel(int mouseX, int mouseY) {
+        if (dragging) {
+            this.x = mouseX + diffX;
+            this.y = mouseY + diffY;
+        }
+
         RenderUtil.drawRect(x, y, x + width, y + height, new Color(20, 20, 20));
         drawString(getName(category.name()), x + 4, (int) getCenter(y, height, getStringHeight()), new Color(230, 230, 230), false);
 
@@ -40,13 +48,24 @@ public class Panel extends Component {
         RenderUtil.drawRect(x + width, y - w, x + width + w, y + finallyHeight + w, category.getColor());
     }
 
-    @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+    public boolean mouseClicked(int mouseX, int mouseY, int mouseButton, boolean clicked) {
+        boolean c = false;
+        if (isMouseHovering(mouseX, mouseY, x, y, x + width, y + height) && !clicked) {
+            AtopiXGui.INSTANCE.bringToFront(this);
+            dragging = true;
+            diffX = this.x - mouseX;
+            diffY = this.y - mouseY;
+            c = true;
+        }
+
         execute(b -> b.mouseClicked(mouseX, mouseY, mouseButton));
+
+        return c;
     }
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int state) {
+        dragging = false;
         execute(b -> b.mouseReleased(mouseX, mouseY, state));
     }
 
@@ -58,5 +77,4 @@ public class Panel extends Component {
     private void execute(Consumer<? super ModuleButton> action) {
         buttons.forEach(action);
     }
-
 }

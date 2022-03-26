@@ -7,7 +7,8 @@ public enum Category {
     EXPLOIT(new Color(70, 80, 180)),
     MOVEMENT(new Color(70, 170, 80)),
     MISC(new Color(220, 220, 80)),
-    RENDER(new Color(170, 80, 170));
+    RENDER(new Color(170, 80, 170)),
+    HUD(new Color(170, 80, 170));
 
     Color color;
 
