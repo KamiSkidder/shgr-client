@@ -46,10 +46,10 @@ public class Hud extends Module {
             float y2 = getYPos() + offset + height;
             RenderUtil.drawRect(x1, y1, x2, y2, ColorUtil.toRGBA(30, 30, 30, dragging ? 150 : (touching ? 120 : 80)));
 
-            RenderUtil.drawLine(x1, y1, x1, y2, 2, ColorUtil.toRGBA(10, 10, 10, 100));
-            RenderUtil.drawLine(x2, y1, x2, y2, 2, ColorUtil.toRGBA(10, 10, 10, 100));
-            RenderUtil.drawLine(x1, y1, x2, y1, 2, ColorUtil.toRGBA(10, 10, 10, 100));
-            RenderUtil.drawLine(x1, y2, x2, y2, 2, ColorUtil.toRGBA(10, 10, 10, 100));
+            RenderUtil.drawLine(x1, y1, x1, y2, 2, ColorUtil.toRGBA(50, 50, 50, 100));
+            RenderUtil.drawLine(x2, y1, x2, y2, 2, ColorUtil.toRGBA(50, 50, 50, 100));
+            RenderUtil.drawLine(x1, y1, x2, y1, 2, ColorUtil.toRGBA(50, 50, 50, 100));
+            RenderUtil.drawLine(x1, y2, x2, y2, 2, ColorUtil.toRGBA(50, 50, 50, 100));
         }
 
         onRenderHud();
