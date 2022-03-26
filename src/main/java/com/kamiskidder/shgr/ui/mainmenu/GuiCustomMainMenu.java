@@ -752,7 +752,8 @@ public class GuiCustomMainMenu extends GuiScreen {
         GL11.glEnable(GL11.GL_LINE_SMOOTH);
 
         GlStateManager.bindTexture(location.getGlTextureId());
-
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+        
         GlStateManager.translate(0, 0, 0);
         GlStateManager.glBegin(7);
 
@@ -782,6 +783,7 @@ public class GuiCustomMainMenu extends GuiScreen {
         GL11.glEnable(GL11.GL_LINE_SMOOTH);
 
         GlStateManager.bindTexture(location.getGlTextureId());
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 
         GlStateManager.translate(0, 0, 0);
         GlStateManager.glBegin(GL11.GL_QUADS);
