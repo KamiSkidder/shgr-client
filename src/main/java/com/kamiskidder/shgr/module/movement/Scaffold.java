@@ -1,5 +1,7 @@
 package com.kamiskidder.shgr.module.movement;
 
+import java.awt.Color;
+
 import com.kamiskidder.shgr.event.player.UpdateWalkingPlayerEvent;
 import com.kamiskidder.shgr.manager.RotateManager;
 import com.kamiskidder.shgr.module.Category;
@@ -9,12 +11,11 @@ import com.kamiskidder.shgr.util.client.Timer;
 import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
+
 import net.minecraft.block.BlockAir;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.awt.*;
 
 public class Scaffold extends Module {
     public Setting<Boolean> render = register(new Setting("Render", true));
@@ -58,16 +59,12 @@ public class Scaffold extends Module {
                     placePos = feet;
                     RotateManager.lookAtPos(feet.add(dire.getDirectionVec()));
                 }
-
-
-                if (mc.player.movementInput.jump && !PlayerUtil.isPlayerMoving()) {
-                    if (crying > 2) {
-                        mc.player.motionY = 0.399;
-                        crying -= 1;
-                    } else {
-                        mc.player.motionY = -0.5;
-                        crying += 1;
-                    }
+                
+                if ((int) mc.player.posY > (int) mc.player.lastTickPosY && !PlayerUtil.isPlayerMoving()) {
+                    mc.player.setPosition(mc.player.posX, (int) mc.player.posY, mc.player.posZ);
+                    mc.player.motionY = 0;
+                    if (mc.player.movementInput.jump)
+                        mc.player.jump();
                 }
             }
         } else {
