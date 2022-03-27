@@ -1,5 +1,14 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 import com.kamiskidder.shgr.event.player.PlayerMoveEvent;
 import com.kamiskidder.shgr.event.player.UpdatePlayerEvent;
 import com.kamiskidder.shgr.event.player.UpdateWalkingPlayerEvent;
@@ -8,6 +17,7 @@ import com.kamiskidder.shgr.module.movement.NoPush;
 import com.kamiskidder.shgr.module.movement.NoSlow;
 import com.kamiskidder.shgr.util.client.EventUtil;
 import com.mojang.authlib.GameProfile;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -23,14 +33,6 @@ import net.minecraft.util.MovementInput;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayerSP.class)
 public abstract class MixinEntityPlayerSP extends EntityPlayer {
@@ -51,7 +53,15 @@ public abstract class MixinEntityPlayerSP extends EntityPlayer {
 
     @Inject(method = "onUpdateWalkingPlayer", at = @At("HEAD"), cancellable = true)
     public void onUpdateWalkingPlayer(CallbackInfo ci) {
-        UpdateWalkingPlayerEvent event = new UpdateWalkingPlayerEvent();
+        UpdateWalkingPlayerEvent event = new UpdateWalkingPlayerEvent(true);
+        EventUtil.post(event);
+        if (event.isCanceled())
+            ci.cancel();
+    }
+    
+    @Inject(method = "onUpdateWalkingPlayer", at = @At("RETURN"), cancellable = true)
+    public void onUpdateWalkingPlayerReturn(CallbackInfo ci) {
+        UpdateWalkingPlayerEvent event = new UpdateWalkingPlayerEvent(false);
         EventUtil.post(event);
         if (event.isCanceled())
             ci.cancel();
@@ -86,7 +96,7 @@ public abstract class MixinEntityPlayerSP extends EntityPlayer {
                         this.connection.sendPacket(new CPacketVehicleMove(entity));
                     }
                 } else {
-                    UpdateWalkingPlayerEvent uwpEvent = new UpdateWalkingPlayerEvent();
+                    UpdateWalkingPlayerEvent uwpEvent = new UpdateWalkingPlayerEvent(true);
                     EventUtil.post(uwpEvent);
                     if (!uwpEvent.isCanceled()) {
                         updateWalkingPlayer();
@@ -162,6 +172,9 @@ public abstract class MixinEntityPlayerSP extends EntityPlayer {
             a.prevOnGround = this.onGround;
             a.autoJumpEnabled = this.mc.gameSettings.autoJump;
         }
+
+        UpdateWalkingPlayerEvent uwpEvent = new UpdateWalkingPlayerEvent(false);
+        EventUtil.post(uwpEvent);
     }
 
     @Redirect(method = {"move"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/AbstractClientPlayer;move(Lnet/minecraft/entity/MoverType;DDD)V"))

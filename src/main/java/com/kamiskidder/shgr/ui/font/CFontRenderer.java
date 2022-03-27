@@ -1,12 +1,13 @@
 package com.kamiskidder.shgr.ui.font;
 
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.DynamicTexture;
-import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 
 public class CFontRenderer extends CFont {
     private final int[] colorCode = new int[32];

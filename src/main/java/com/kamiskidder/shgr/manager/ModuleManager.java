@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import com.kamiskidder.shgr.ui.hud.Hud;
 import org.lwjgl.input.Keyboard;
 
 import com.kamiskidder.shgr.module.Category;
@@ -22,6 +21,7 @@ import com.kamiskidder.shgr.module.misc.ChatSuffix;
 import com.kamiskidder.shgr.module.misc.FakePlayer;
 import com.kamiskidder.shgr.module.misc.FastUse;
 import com.kamiskidder.shgr.module.misc.LagbackLogger;
+import com.kamiskidder.shgr.module.misc.PacketLogger;
 import com.kamiskidder.shgr.module.misc.TimeChanger;
 import com.kamiskidder.shgr.module.misc.Timer;
 import com.kamiskidder.shgr.module.misc.TunnelAssist;
@@ -33,6 +33,7 @@ import com.kamiskidder.shgr.module.movement.NoFall;
 import com.kamiskidder.shgr.module.movement.NoPush;
 import com.kamiskidder.shgr.module.movement.NoRotate;
 import com.kamiskidder.shgr.module.movement.NoSlow;
+import com.kamiskidder.shgr.module.movement.Scaffold;
 import com.kamiskidder.shgr.module.movement.Sprint;
 import com.kamiskidder.shgr.module.movement.Step;
 import com.kamiskidder.shgr.module.render.AntiCollision;
@@ -47,6 +48,7 @@ import com.kamiskidder.shgr.module.render.Nametags;
 import com.kamiskidder.shgr.module.render.Notification;
 import com.kamiskidder.shgr.module.render.StorageESP;
 import com.kamiskidder.shgr.module.render.Waypoints;
+import com.kamiskidder.shgr.ui.hud.Hud;
 import com.kamiskidder.shgr.ui.hud.component.TestHud;
 import com.kamiskidder.shgr.util.Util;
 import com.kamiskidder.shgr.util.client.EventUtil;
@@ -84,6 +86,7 @@ public class ModuleManager implements Util {
         register(new NoPush());
         register(new EntitySpeed());
         register(new Step());
+        register(new Scaffold());
         //misc
         register(new AutoDupe());
         register(new LagbackLogger());
@@ -95,6 +98,8 @@ public class ModuleManager implements Util {
         register(new ChatSuffix());
         register(new FastUse());
         register(new Timer());
+        //register(new DiscordRPC());
+        register(new PacketLogger());
         //render
         register(new ClickGui());
         register(new FullBright());

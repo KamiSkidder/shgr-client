@@ -174,12 +174,12 @@ public class GuiCustomMainMenu extends GuiScreen {
 
         GlStateManager.pushMatrix();
         GlStateManager.enableTexture2D();
-        GlStateManager.enableAlpha();
-
+        GlStateManager.disableAlpha();
+        
         GL11.glTranslatef((width / 2), (height / 2), 0);
         GL11.glScalef(1.09f, 1.09f, 1.09f);
         GL11.glTranslatef(-(width / 2), -(height / 2), 0);
-
+       
         //background
         GL11.glTranslatef(mouseX * 0.0012f, mouseY * 0.012f, 0);
         drawImage(background, 0, 0, width, height);

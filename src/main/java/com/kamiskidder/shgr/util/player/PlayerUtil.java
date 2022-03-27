@@ -1,10 +1,15 @@
 package com.kamiskidder.shgr.util.player;
 
 import com.kamiskidder.shgr.util.Util;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 
 public class PlayerUtil implements Util {
+	public static boolean canSeeEntity(Entity e) {
+		return mc.player.canEntityBeSeen(e);
+	}
+	
     public static double getDistance(Entity e) {
         return mc.player.getDistance(e);
     }

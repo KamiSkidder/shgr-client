@@ -24,6 +24,6 @@ public class FontManager {
         helvetica2 = new CFontRenderer(new CFont.CustomFont("/assets/minecraft/font/Helvetica.ttf", 19f, Font.PLAIN), true, false);
         helvetica3 = new CFontRenderer(new CFont.CustomFont("/assets/minecraft/font/Helvetica.ttf", 16f, Font.PLAIN), true, false);
 
-        icon = new CFontRenderer(new CFont.CustomFont("/assets/minecraft/font/icon.ttf", 19f, Font.PLAIN), true, false);
+        icon = new CFontRenderer(new CFont.CustomFont("/assets/minecraft/font/Icon.ttf", 19f, Font.PLAIN), true, false);
     }
 }
