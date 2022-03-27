@@ -1,14 +1,34 @@
 package com.kamiskidder.shgr.module.misc;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
 import com.kamiskidder.shgr.event.client.PacketEvent;
+import com.kamiskidder.shgr.manager.ConfigManager;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.*;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.Arrays;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketAnimation;
+import net.minecraft.network.play.client.CPacketChatMessage;
+import net.minecraft.network.play.client.CPacketConfirmTeleport;
+import net.minecraft.network.play.client.CPacketCustomPayload;
+import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
+import net.minecraft.network.play.client.CPacketInput;
+import net.minecraft.network.play.client.CPacketKeepAlive;
+import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayerAbilities;
+import net.minecraft.network.play.client.CPacketPlayerDigging;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
+import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.network.play.client.CPacketVehicleMove;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class PacketLogger extends Module {
     public Setting<Boolean> player = register(new Setting("Player", true));
@@ -27,8 +47,41 @@ public class PacketLogger extends Module {
     public Setting<Boolean> keepAlive = register(new Setting("KeepAlive", true));
     public Setting<Boolean> itemChange = register(new Setting("ItemChange", true));
 
+    private FileWriter writer = null;
+    private String path = null;
+    
     public PacketLogger() {
         super("PacketLogger", Category.MISC);
+    }
+    
+    @Override
+    public void onEnable() {
+    	File loggerDir = new File(String.format("%sPacketLogger", ConfigManager.folder));
+    	loggerDir.mkdir();
+		DateTimeFormatter dtformat = 
+				DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+        File txt = new File(String.format("%sPacketLogger/%s.txt", ConfigManager.folder, dtformat.format(LocalDateTime.now())));
+        path = txt.getPath();
+        writer = null;
+        try {
+        	writer = new FileWriter(txt);
+        }
+        catch (Exception e) {
+        	e.printStackTrace();
+		}
+    }
+    
+    @Override
+    public void onDisable() {
+    	if (writer != null) {
+    		try {
+        		writer.flush();
+        		writer.close();
+        		sendMessage(String.format("Logged packets has saved in %s", path));
+    		} catch (Exception e) {
+            	e.printStackTrace();
+			}
+    	}
     }
 
     @SubscribeEvent
@@ -119,7 +172,16 @@ public class PacketLogger extends Module {
     }
 
     private void sendLoggerMessage(String className, String... values) {
-        sendMessage(String.format("%s > %s", className, Arrays.toString(values)));
+    	String msg = String.format("%s > %s", className, Arrays.toString(values)); 
+        sendMessage(msg);
+        
+        if (writer != null) {
+            try {
+            	writer.append(msg + "\n");
+            } catch (Exception e) {
+            	e.printStackTrace();
+    		}	
+        }
     }
 
     private String getFormattedArg(String name, Object value) {
