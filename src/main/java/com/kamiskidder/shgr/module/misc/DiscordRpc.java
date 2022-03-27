@@ -15,8 +15,6 @@ public class DiscordRpc extends Module {
     }
 
     private Thread _thread = null;
-    ;
-
 
     @Override
     public void onEnable() {
