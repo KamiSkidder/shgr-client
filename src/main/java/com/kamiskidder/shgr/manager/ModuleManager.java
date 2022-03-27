@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import com.kamiskidder.shgr.module.combat.Critical;
+import com.kamiskidder.shgr.module.misc.*;
 import com.kamiskidder.shgr.ui.hud.Hud;
+import com.kamiskidder.shgr.ui.hud.component.PingHud;
 import org.lwjgl.input.Keyboard;
 
 import com.kamiskidder.shgr.module.Category;
@@ -15,16 +18,6 @@ import com.kamiskidder.shgr.module.combat.KillAura;
 import com.kamiskidder.shgr.module.combat.Velocity;
 import com.kamiskidder.shgr.module.exploit.PacketFly;
 import com.kamiskidder.shgr.module.exploit.XCarry;
-import com.kamiskidder.shgr.module.misc.AutoDupe;
-import com.kamiskidder.shgr.module.misc.BoatAura;
-import com.kamiskidder.shgr.module.misc.Breaker;
-import com.kamiskidder.shgr.module.misc.ChatSuffix;
-import com.kamiskidder.shgr.module.misc.FakePlayer;
-import com.kamiskidder.shgr.module.misc.FastUse;
-import com.kamiskidder.shgr.module.misc.LagbackLogger;
-import com.kamiskidder.shgr.module.misc.TimeChanger;
-import com.kamiskidder.shgr.module.misc.Timer;
-import com.kamiskidder.shgr.module.misc.TunnelAssist;
 import com.kamiskidder.shgr.module.movement.AutoWalk;
 import com.kamiskidder.shgr.module.movement.BoatFly;
 import com.kamiskidder.shgr.module.movement.EntitySpeed;
@@ -70,6 +63,7 @@ public class ModuleManager implements Util {
         register(new KillAura());
         register(new Velocity());
         register(new AutoCrystal());
+        register(new Critical());
         //exploit
         register(new XCarry());
         register(new PacketFly());
@@ -95,6 +89,7 @@ public class ModuleManager implements Util {
         register(new ChatSuffix());
         register(new FastUse());
         register(new Timer());
+        register(new DiscordRpc());
         //render
         register(new ClickGui());
         register(new FullBright());
@@ -110,6 +105,7 @@ public class ModuleManager implements Util {
         register(new AntiCollision());
         //hud
         register(new TestHud());
+        register(new PingHud());
 
         EventUtil.register(this);
     }

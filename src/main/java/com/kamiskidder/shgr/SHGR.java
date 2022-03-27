@@ -32,7 +32,6 @@ public class SHGR {
     public static RotateManager rotateManager;
     public static NotificationManager notificationManager;
     public static MainMenuManager mainMenuManager;
-    public static RPCManager rpcManager;
 
     public static Logger logger = LogManager.getLogger(MOD_ID);
 
@@ -46,7 +45,6 @@ public class SHGR {
         rotateManager = new RotateManager();
         notificationManager = new NotificationManager();
         mainMenuManager = new MainMenuManager();
-        rpcManager = new RPCManager();
         ConfigManager.load();
         FriendManager.load();
         mainMenuManager.init();
