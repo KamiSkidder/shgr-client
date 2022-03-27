@@ -1,6 +1,13 @@
 package com.kamiskidder.shgr.manager;
 
-import java.awt.Color;
+import com.google.gson.Gson;
+import com.kamiskidder.shgr.SHGR;
+import com.kamiskidder.shgr.module.Category;
+import com.kamiskidder.shgr.module.Module;
+import com.kamiskidder.shgr.module.Setting;
+import com.kamiskidder.shgr.util.client.LogUtil;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,13 +17,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.google.gson.Gson;
-import com.kamiskidder.shgr.SHGR;
-import com.kamiskidder.shgr.module.Category;
-import com.kamiskidder.shgr.module.Module;
-import com.kamiskidder.shgr.module.Setting;
-import com.kamiskidder.shgr.util.client.LogUtil;
 
 public class ConfigManager {
     public static final String folder = SHGR.DIR_NAME + "/";

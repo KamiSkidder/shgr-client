@@ -1,16 +1,14 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
+import com.kamiskidder.shgr.manager.RotateManager;
+import com.kamiskidder.shgr.module.render.Nametags;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import com.kamiskidder.shgr.manager.RotateManager;
-import com.kamiskidder.shgr.module.render.Nametags;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 
 @Mixin(RenderPlayer.class)
 public class MixinRenderPlayer {

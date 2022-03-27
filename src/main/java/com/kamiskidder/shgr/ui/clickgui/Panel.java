@@ -11,9 +11,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class Panel extends Component {
-    public Category category;
-
     private final List<ModuleButton> buttons = new ArrayList<>();
+    public Category category;
     private boolean dragging = false;
     private int diffX, diffY = 0;
 

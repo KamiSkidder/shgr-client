@@ -6,7 +6,7 @@ public class Timer {
     public Timer() {
         this.time = System.nanoTime();
     }
-    
+
     public boolean passed(double ms) {
         return System.currentTimeMillis() - this.time >= ms;
     }

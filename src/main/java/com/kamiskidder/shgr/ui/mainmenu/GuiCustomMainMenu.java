@@ -1,13 +1,5 @@
 package com.kamiskidder.shgr.ui.mainmenu;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import javax.imageio.ImageIO;
-
-import org.lwjgl.opengl.GL11;
-
 import com.kamiskidder.shgr.SHGR;
 import com.kamiskidder.shgr.manager.FontManager;
 import com.kamiskidder.shgr.manager.MainMenuManager;
@@ -15,7 +7,6 @@ import com.kamiskidder.shgr.ui.font.CFontRenderer;
 import com.kamiskidder.shgr.util.client.MathUtil;
 import com.kamiskidder.shgr.util.render.ColorUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -31,28 +22,14 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.GuiModList;
+import org.lwjgl.opengl.GL11;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GuiCustomMainMenu extends GuiScreen {
-    private final CopyOnWriteArrayList<Fish> fish = new CopyOnWriteArrayList<>();
-    private final CopyOnWriteArrayList<Pedal> pedal1List = new CopyOnWriteArrayList<>();
-    private final CopyOnWriteArrayList<Pedal> pedal2List = new CopyOnWriteArrayList<>();
-    private final CFontRenderer helvetica2 = FontManager.helvetica2;
-    private final CFontRenderer icon = FontManager.icon;
-    private boolean alreadyInit = false;
-    private float tick = 0;
-    private float fish1Tick, fish2Tick, fish3Tick, fish4Tick = 0;
-    private float pedal1Tick, pedal2Tick = 0;
-    private float lastRw, lastRh;
-    private float singleX = 40f;
-    private float singleR, singleG, singleB = 0;
-    private float multiX = 56f;
-    private float multiR, multiG, multiB = 0;
-    private float modX = 56f;
-    private float modR, modG, modB = 0;
-    private float settingX = 50f;
-    private float settingR, settingG, settingB = 0;
-    private float exitX = 50f;
-    private float exitR, exitG, exitB = 0;
     private static DynamicTexture background = null;
     private static DynamicTexture mountain = null;
     private static DynamicTexture flower1 = null;
@@ -85,6 +62,26 @@ public class GuiCustomMainMenu extends GuiScreen {
     private static DynamicTexture fish4 = null;
     private static DynamicTexture pedal1 = null;
     private static DynamicTexture pedal2 = null;
+    private final CopyOnWriteArrayList<Fish> fish = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<Pedal> pedal1List = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<Pedal> pedal2List = new CopyOnWriteArrayList<>();
+    private final CFontRenderer helvetica2 = FontManager.helvetica2;
+    private final CFontRenderer icon = FontManager.icon;
+    private boolean alreadyInit = false;
+    private float tick = 0;
+    private float fish1Tick, fish2Tick, fish3Tick, fish4Tick = 0;
+    private float pedal1Tick, pedal2Tick = 0;
+    private float lastRw, lastRh;
+    private float singleX = 40f;
+    private float singleR, singleG, singleB = 0;
+    private float multiX = 56f;
+    private float multiR, multiG, multiB = 0;
+    private float modX = 56f;
+    private float modR, modG, modB = 0;
+    private float settingX = 50f;
+    private float settingR, settingG, settingB = 0;
+    private float exitX = 50f;
+    private float exitR, exitG, exitB = 0;
 
     public static void drawRect(float left, float top, float right, float bottom, int color) {
         if (left < right) {
@@ -175,11 +172,11 @@ public class GuiCustomMainMenu extends GuiScreen {
         GlStateManager.pushMatrix();
         GlStateManager.enableTexture2D();
         GlStateManager.disableAlpha();
-        
+
         GL11.glTranslatef((width / 2), (height / 2), 0);
         GL11.glScalef(1.09f, 1.09f, 1.09f);
         GL11.glTranslatef(-(width / 2), -(height / 2), 0);
-       
+
         //background
         GL11.glTranslatef(mouseX * 0.0012f, mouseY * 0.012f, 0);
         drawImage(background, 0, 0, width, height);
@@ -268,8 +265,8 @@ public class GuiCustomMainMenu extends GuiScreen {
     private void drawGUI(float mouseX, float mouseY, float rw, float rh,
                          float width, float height) {
         drawRect(0, 0, 140 * rw, (int) height, ColorUtil.toRGBA(255, 255, 255));
-        RenderUtil.drawGradientRect(140*rw, 0, 145*rw, (int)height, ColorUtil.toRGBA(0, 0, 0, 50), ColorUtil.toRGBA(0, 0, 0, 0), ColorUtil.toRGBA(0, 0, 0, 50), ColorUtil.toRGBA(0, 0, 0, 0));
-        
+        RenderUtil.drawGradientRect(140 * rw, 0, 145 * rw, (int) height, ColorUtil.toRGBA(0, 0, 0, 50), ColorUtil.toRGBA(0, 0, 0, 0), ColorUtil.toRGBA(0, 0, 0, 50), ColorUtil.toRGBA(0, 0, 0, 0));
+
         drawString(FontManager.helvetica1, "SHGR", -25.0f, 5.0f, ColorUtil.toRGBA(200, 200, 200), rw, rh);
         drawString(FontManager.helvetica3, "v " + SHGR.MOD_VERSION, 79f, 23.0f, ColorUtil.toRGBA(50, 50, 50), rw, rh);
 
@@ -753,7 +750,7 @@ public class GuiCustomMainMenu extends GuiScreen {
 
         GlStateManager.bindTexture(location.getGlTextureId());
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
-        
+
         GlStateManager.translate(0, 0, 0);
         GlStateManager.glBegin(7);
 

@@ -64,12 +64,12 @@ public class Setting<T> {
         return maxValue;
     }
 
-    public T getMinValue() {
-        return minValue;
-    }
-
     public void setMaxValue(T value) {
         this.maxValue = value;
+    }
+
+    public T getMinValue() {
+        return minValue;
     }
 
     public String[] getValues() {

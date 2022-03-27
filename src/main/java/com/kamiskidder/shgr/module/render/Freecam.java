@@ -6,7 +6,6 @@ import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
-
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -14,11 +13,10 @@ import net.minecraft.network.play.server.SPacketPlayerPosLook;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Freecam extends Module {
+    public static Freecam INSTANCE;
     public Setting<Float> speed = register(new Setting("Speed", 3.0F, 10.0F, 0.1F));
     public Setting<Float> ySpeed = register(new Setting("Y Speed", 3.0F, 10.0F, 0.1F));
 
-    public static Freecam INSTANCE;
-    
     public Freecam() {
         super("Freecam", Category.RENDER);
         INSTANCE = this;
@@ -40,15 +38,15 @@ public class Freecam extends Module {
 
         mc.player.noClip = true;
     }
-    
+
     @Override
     public void onDisable() {
-    	if (nullCheck()) {
-    		disable();
-    		return;
-    	}
-    	
-    	mc.world.removeEntityFromWorld(-998);
+        if (nullCheck()) {
+            disable();
+            return;
+        }
+
+        mc.world.removeEntityFromWorld(-998);
     }
 
     @SubscribeEvent

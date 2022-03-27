@@ -6,17 +6,15 @@ import com.kamiskidder.shgr.module.Setting;
 import com.kamiskidder.shgr.module.render.HudEditor;
 import com.kamiskidder.shgr.util.render.ColorUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
-
 import net.minecraft.client.gui.ScaledResolution;
 
 public class Hud extends Module {
+    private final float offset = 10;
     public Setting<Float> x = register(new Setting("X", 0f, 1980f, 0f));
     public Setting<Float> y = register(new Setting("Y", 0f, 1280f, 0f));
     public float width, height = 0;
-
     private boolean dragging, touching = false;
     private float diffX, diffY = 0;
-    private final float offset = 10;
 
     public Hud(String name) {
         super(name, Category.HUD);
