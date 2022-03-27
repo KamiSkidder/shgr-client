@@ -9,7 +9,7 @@ public class Step extends Module {
         super("Step", Category.MOVEMENT);
     }
 
-    public Setting<Float> height = register(new Setting("heigth", 1.0F, 5.0F, 0.1F));
+    public Setting<Float> height = register(new Setting("Heigth", 1.0F, 5.0F, 0.1F));
 
     @Override
     public void onTick() {

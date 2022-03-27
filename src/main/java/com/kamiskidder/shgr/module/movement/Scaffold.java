@@ -1,12 +1,16 @@
 package com.kamiskidder.shgr.module.movement;
 
+import java.awt.Color;
+
 import com.kamiskidder.shgr.event.player.UpdateWalkingPlayerEvent;
 import com.kamiskidder.shgr.manager.RotateManager;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
+import com.kamiskidder.shgr.module.Setting;
 import com.kamiskidder.shgr.util.client.Timer;
 import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
+import com.kamiskidder.shgr.util.render.RenderUtil;
 
 import net.minecraft.block.BlockAir;
 import net.minecraft.util.EnumFacing;
@@ -14,6 +18,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Scaffold extends Module {
+    public Setting<Boolean> render = register(new Setting("Render", true));
+    public Setting<String> mode = register(new Setting("Mode", "Fill", new String[]{"Fill", "Outline", "Both"}, v -> render.getValue()));
+    public Setting<Color> color = register(new Setting("Color", new Color(230, 10, 10, 70), v -> !mode.getValue().equalsIgnoreCase("Outline") && render.getValue()));
+    public Setting<Float> thickness = register(new Setting("Thickness", 1.5F, 5.0F, 0.1F, v -> !mode.getValue().equalsIgnoreCase("Fill") && render.getValue()));
+    public Setting<Color> outlineColor = register(new Setting("Outline Color", new Color(255, 10, 10, 70), v -> !mode.getValue().equalsIgnoreCase("Fill") && render.getValue()));
+	
 	public Scaffold() {
 		super("Scaffold", Category.MOVEMENT);
 	}
@@ -24,7 +34,9 @@ public class Scaffold extends Module {
 	
 	@SubscribeEvent
 	public void onUpdate(UpdateWalkingPlayerEvent event) {
-		if (timer.passedD(150) && placePos == null) {
+        if (nullCheck()) return;
+
+		if (timer.passedD(300) && placePos == null) {
 			RotateManager.reset();
 		}
 		
@@ -69,4 +81,18 @@ public class Scaffold extends Module {
 			}
 		}
 	}
+	
+	@Override
+	public void onDisable() {
+		RotateManager.reset();
+	}
+	
+    @Override
+    public void onRender3D() {
+        if (nullCheck()) return;
+
+        if (placePos != null && render.getValue()) {
+            RenderUtil.drawBox(placePos, mode.getValue(), color.getValue(), outlineColor.getValue(), thickness.getValue());
+        }
+    }
 }
