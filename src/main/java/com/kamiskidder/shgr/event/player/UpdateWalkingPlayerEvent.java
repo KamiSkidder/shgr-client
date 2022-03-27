@@ -3,6 +3,9 @@ package com.kamiskidder.shgr.event.player;
 import com.kamiskidder.shgr.event.SHGREvent;
 
 public class UpdateWalkingPlayerEvent extends SHGREvent {
-    public static class Post extends UpdateWalkingPlayerEvent {
-    }
+	public boolean isPre = false;
+	
+	public UpdateWalkingPlayerEvent(boolean pre) {
+		this.isPre = pre;
+	}
 }

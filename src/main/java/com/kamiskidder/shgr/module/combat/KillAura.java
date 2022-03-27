@@ -12,7 +12,6 @@ import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
 import com.kamiskidder.shgr.util.client.Timer;
 import com.kamiskidder.shgr.util.entity.EntityType;
-import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
 
 import net.minecraft.entity.Entity;
@@ -130,7 +129,7 @@ public class KillAura extends Module {
     private boolean rangeCheck(Entity e) {
         if (PlayerUtil.getDistance(e) > range.getValue())
             return false;
-        return BlockUtil.canSeeEntity(e) || !(PlayerUtil.getDistance(e) > wallRange.getValue());
+        return PlayerUtil.canSeeEntity(e) || !(PlayerUtil.getDistance(e) > wallRange.getValue());
     }
 
     @Override

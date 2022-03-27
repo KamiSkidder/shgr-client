@@ -46,7 +46,7 @@ public class SHGR {
 
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-        LogUtil.info("Starting " + MOD_NAME + " Client...");
+        LogUtil.info("Starting " + MOD_NAME + " ...");
         Display.setTitle(DISPLAY_NAME + " " + MOD_VERSION);
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
@@ -57,7 +57,7 @@ public class SHGR {
         ConfigManager.load();
         FriendManager.load();
         mainMenuManager.init();
-        LogUtil.info(MOD_NAME + "Client started!");
+        LogUtil.info(MOD_NAME + " started!");
 
         EventUtil.register(this);
     }

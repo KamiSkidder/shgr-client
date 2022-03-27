@@ -6,6 +6,10 @@ public class Timer {
     public Timer() {
         this.time = System.nanoTime();
     }
+    
+    public boolean passed(double ms) {
+        return System.currentTimeMillis() - this.time >= ms;
+    }
 
     public boolean passedS(double s) {
         return this.getMs(System.nanoTime() - this.time) >= (long) (s * 1000.0);
