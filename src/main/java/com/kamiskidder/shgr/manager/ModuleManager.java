@@ -1,5 +1,13 @@
 package com.kamiskidder.shgr.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+
+import com.kamiskidder.shgr.ui.hud.Hud;
+import org.lwjgl.input.Keyboard;
+
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.combat.AutoCrystal;
@@ -7,26 +15,49 @@ import com.kamiskidder.shgr.module.combat.KillAura;
 import com.kamiskidder.shgr.module.combat.Velocity;
 import com.kamiskidder.shgr.module.exploit.PacketFly;
 import com.kamiskidder.shgr.module.exploit.XCarry;
-import com.kamiskidder.shgr.module.misc.*;
-import com.kamiskidder.shgr.module.movement.*;
-import com.kamiskidder.shgr.module.render.*;
-import com.kamiskidder.shgr.ui.hud.Hud;
+import com.kamiskidder.shgr.module.misc.AutoDupe;
+import com.kamiskidder.shgr.module.misc.BoatAura;
+import com.kamiskidder.shgr.module.misc.Breaker;
+import com.kamiskidder.shgr.module.misc.ChatSuffix;
+import com.kamiskidder.shgr.module.misc.FakePlayer;
+import com.kamiskidder.shgr.module.misc.FastUse;
+import com.kamiskidder.shgr.module.misc.LagbackLogger;
+import com.kamiskidder.shgr.module.misc.TimeChanger;
+import com.kamiskidder.shgr.module.misc.Timer;
+import com.kamiskidder.shgr.module.misc.TunnelAssist;
+import com.kamiskidder.shgr.module.movement.AutoWalk;
+import com.kamiskidder.shgr.module.movement.BoatFly;
+import com.kamiskidder.shgr.module.movement.EntitySpeed;
+import com.kamiskidder.shgr.module.movement.Flight;
+import com.kamiskidder.shgr.module.movement.NoFall;
+import com.kamiskidder.shgr.module.movement.NoPush;
+import com.kamiskidder.shgr.module.movement.NoRotate;
+import com.kamiskidder.shgr.module.movement.NoSlow;
+import com.kamiskidder.shgr.module.movement.Sprint;
+import com.kamiskidder.shgr.module.movement.Step;
+import com.kamiskidder.shgr.module.render.AntiCollision;
+import com.kamiskidder.shgr.module.render.BlockHighlight;
+import com.kamiskidder.shgr.module.render.CameraClip;
+import com.kamiskidder.shgr.module.render.ClickGui;
+import com.kamiskidder.shgr.module.render.ESP;
+import com.kamiskidder.shgr.module.render.Freecam;
+import com.kamiskidder.shgr.module.render.FullBright;
+import com.kamiskidder.shgr.module.render.HudEditor;
+import com.kamiskidder.shgr.module.render.Nametags;
+import com.kamiskidder.shgr.module.render.Notification;
+import com.kamiskidder.shgr.module.render.StorageESP;
+import com.kamiskidder.shgr.module.render.Waypoints;
 import com.kamiskidder.shgr.ui.hud.component.TestHud;
 import com.kamiskidder.shgr.util.Util;
 import com.kamiskidder.shgr.util.client.EventUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
+
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.lwjgl.input.Keyboard;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class ModuleManager implements Util {
     public static ModuleManager INSTANCE;
@@ -53,7 +84,6 @@ public class ModuleManager implements Util {
         register(new NoPush());
         register(new EntitySpeed());
         register(new Step());
-        register(new Scaffold());
         //misc
         register(new AutoDupe());
         register(new LagbackLogger());
@@ -65,8 +95,6 @@ public class ModuleManager implements Util {
         register(new ChatSuffix());
         register(new FastUse());
         register(new Timer());
-        //register(new DiscordRPC());
-        register(new PacketLogger());
         //render
         register(new ClickGui());
         register(new FullBright());
