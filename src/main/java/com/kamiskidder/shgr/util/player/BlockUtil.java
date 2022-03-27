@@ -1,11 +1,6 @@
 package com.kamiskidder.shgr.util.player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.kamiskidder.shgr.util.Util;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -16,6 +11,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BlockUtil implements Util {
     public static final List<Block> blackList = Arrays.asList(Blocks.ENDER_CHEST, Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.CRAFTING_TABLE, Blocks.ANVIL, Blocks.BREWING_STAND, Blocks.HOPPER, Blocks.DROPPER, Blocks.DISPENSER, Blocks.TRAPDOOR, Blocks.ENCHANTING_TABLE);
@@ -66,7 +65,7 @@ public class BlockUtil implements Util {
         RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.eyeHeight, mc.player.posZ), new Vec3d(pos));
         return result != null;
     }
-    
+
     public static BlockPos placeBlock(BlockPos pos, boolean packet) {
         Block block = mc.world.getBlockState(pos).getBlock();
         if (!(block instanceof net.minecraft.block.BlockAir) && !(block instanceof net.minecraft.block.BlockLiquid))
@@ -104,7 +103,7 @@ public class BlockUtil implements Util {
         float f2 = (float) (vec.z - (double) pos.getZ());
         mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, direction, hand, f, f1, f2));
         mc.player.connection.sendPacket(new CPacketAnimation(hand));
-        
+
         mc.rightClickDelayTimer = 4;
     }
 
@@ -118,7 +117,7 @@ public class BlockUtil implements Util {
             mc.player.swingArm(EnumHand.MAIN_HAND);
         }
     }
-    
+
     public static EnumFacing getPlaceableSide(BlockPos pos) {
         for (EnumFacing side : EnumFacing.values()) {
             BlockPos neighbour = pos.offset(side);

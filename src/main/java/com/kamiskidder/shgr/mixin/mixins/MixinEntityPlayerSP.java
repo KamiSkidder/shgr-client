@@ -1,14 +1,5 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import com.kamiskidder.shgr.event.player.PlayerMoveEvent;
 import com.kamiskidder.shgr.event.player.UpdatePlayerEvent;
 import com.kamiskidder.shgr.event.player.UpdateWalkingPlayerEvent;
@@ -17,7 +8,6 @@ import com.kamiskidder.shgr.module.movement.NoPush;
 import com.kamiskidder.shgr.module.movement.NoSlow;
 import com.kamiskidder.shgr.util.client.EventUtil;
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -33,6 +23,14 @@ import net.minecraft.util.MovementInput;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayerSP.class)
 public abstract class MixinEntityPlayerSP extends EntityPlayer {
@@ -58,7 +56,7 @@ public abstract class MixinEntityPlayerSP extends EntityPlayer {
         if (event.isCanceled())
             ci.cancel();
     }
-    
+
     @Inject(method = "onUpdateWalkingPlayer", at = @At("RETURN"), cancellable = true)
     public void onUpdateWalkingPlayerReturn(CallbackInfo ci) {
         UpdateWalkingPlayerEvent event = new UpdateWalkingPlayerEvent(false);

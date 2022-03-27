@@ -1,5 +1,7 @@
 package com.kamiskidder.shgr.manager;
 
+import com.kamiskidder.shgr.util.client.LogUtil;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -8,10 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import com.kamiskidder.shgr.util.client.LogUtil;
-
 public class MainMenuManager {
-	public static boolean canDrawMainMenu = true;
+    public static boolean canDrawMainMenu = true;
     public static String folder = ConfigManager.folder + "mainmenu/";
 
     public void init() {
@@ -57,14 +57,13 @@ public class MainMenuManager {
     private void downloadFile(String file) {
         if (!Files.exists(Paths.get(folder + file))) {
             try {
-                URL fetchWebsite = new URL("https://raw.githubusercontent.com/AzulineTeam/MainMenu/main/"+file);
-                Path f = Files.createFile(Paths.get(folder+file));
+                URL fetchWebsite = new URL("https://raw.githubusercontent.com/AzulineTeam/MainMenu/main/" + file);
+                Path f = Files.createFile(Paths.get(folder + file));
                 try (InputStream inputStream = fetchWebsite.openStream()) {
-                    Files.copy(inputStream, Paths.get(folder+file), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(inputStream, Paths.get(folder + file), StandardCopyOption.REPLACE_EXISTING);
                     LogUtil.info("Downloaded " + file);
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 canDrawMainMenu = false;
             }

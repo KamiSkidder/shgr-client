@@ -1,22 +1,20 @@
 package com.kamiskidder.shgr.ui.clickgui;
 
+import com.kamiskidder.shgr.manager.ModuleManager;
+import com.kamiskidder.shgr.module.Category;
+import com.kamiskidder.shgr.module.render.HudEditor;
+import com.kamiskidder.shgr.ui.hud.Hud;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
-
-import com.kamiskidder.shgr.manager.ModuleManager;
-import com.kamiskidder.shgr.ui.hud.Hud;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-
-import com.kamiskidder.shgr.module.Category;
-import com.kamiskidder.shgr.module.render.HudEditor;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.ResourceLocation;
 
 public class AtopiXGui extends GuiScreen {
     public static AtopiXGui INSTANCE;

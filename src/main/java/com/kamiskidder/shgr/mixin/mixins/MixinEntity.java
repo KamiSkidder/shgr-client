@@ -1,18 +1,16 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
+import com.kamiskidder.shgr.module.movement.NoPush;
+import com.kamiskidder.shgr.module.render.Freecam;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.MoverType;
+import net.minecraft.util.math.AxisAlignedBB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import com.kamiskidder.shgr.module.movement.NoPush;
-import com.kamiskidder.shgr.module.render.Freecam;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MoverType;
-import net.minecraft.util.math.AxisAlignedBB;
 
 @Mixin(Entity.class)
 public abstract class MixinEntity {
@@ -52,7 +50,7 @@ public abstract class MixinEntity {
             return d;
         return instance.calculateYOffset(bb, d);
     }
-    
+
     @Redirect(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/AxisAlignedBB;calculateZOffset(Lnet/minecraft/util/math/AxisAlignedBB;D)D"))
     public double calculateZOffset(AxisAlignedBB instance, AxisAlignedBB bb, double d) {
         if (Freecam.INSTANCE.isToggled())

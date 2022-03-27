@@ -1,7 +1,6 @@
 package com.kamiskidder.shgr.module.misc;
 
 import com.kamiskidder.shgr.event.client.KeyboardUpdateEvent;
-import com.kamiskidder.shgr.event.player.UpdatePlayerEvent;
 import com.kamiskidder.shgr.manager.RotateManager;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;

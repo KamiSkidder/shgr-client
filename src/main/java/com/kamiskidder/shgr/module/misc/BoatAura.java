@@ -1,23 +1,21 @@
 package com.kamiskidder.shgr.module.misc;
 
-import java.awt.Color;
-import java.util.Comparator;
-
 import com.kamiskidder.shgr.manager.RotateManager;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
 import com.kamiskidder.shgr.util.client.Timer;
-import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
 import com.kamiskidder.shgr.util.render.GeometryMasks;
 import com.kamiskidder.shgr.util.render.RenderUtil;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.util.EnumHand;
+
+import java.awt.*;
+import java.util.Comparator;
 
 public class BoatAura extends Module {
     public static BoatAura INSTANCE;
