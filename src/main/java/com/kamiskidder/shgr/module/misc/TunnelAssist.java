@@ -1,7 +1,12 @@
 package com.kamiskidder.shgr.module.misc;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 import com.kamiskidder.shgr.event.client.KeyboardUpdateEvent;
-import com.kamiskidder.shgr.event.player.UpdatePlayerEvent;
 import com.kamiskidder.shgr.manager.RotateManager;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
@@ -9,6 +14,7 @@ import com.kamiskidder.shgr.module.Setting;
 import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.init.Blocks;
@@ -18,12 +24,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 public class TunnelAssist extends Module {
     private final List<Block> ignoreBlocks = Arrays.asList(Blocks.STONE_BUTTON, Blocks.WOODEN_BUTTON,
@@ -49,7 +49,7 @@ public class TunnelAssist extends Module {
     public void onRender3D() {
         if (nullCheck()) return;
 
-        if (lastBreak != null) {
+        if (lastBreak != null && render.getValue()) {
             RenderUtil.drawBox(lastBreak, mode.getValue(), color.getValue(), outlineColor.getValue(), thickness.getValue());
         }
     }
