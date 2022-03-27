@@ -23,7 +23,7 @@ public class SHGR {
     public static final String DISPLAY_NAME = "SHGR";
     public static final ChatFormatting DISPLAY_COLOR = ChatFormatting.LIGHT_PURPLE;
 
-    //Name of directory in which to save config
+    //Name of directory
     public static final String DIR_NAME = "shgr";
 
     public static ModuleManager moduleManager;
@@ -32,6 +32,7 @@ public class SHGR {
     public static RotateManager rotateManager;
     public static NotificationManager notificationManager;
     public static MainMenuManager mainMenuManager;
+    public static RPCManager rpcManager;
 
     public static Logger logger = LogManager.getLogger(MOD_ID);
 
@@ -45,6 +46,7 @@ public class SHGR {
         rotateManager = new RotateManager();
         notificationManager = new NotificationManager();
         mainMenuManager = new MainMenuManager();
+        rpcManager = new RPCManager();
         ConfigManager.load();
         FriendManager.load();
         mainMenuManager.init();
