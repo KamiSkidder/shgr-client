@@ -67,6 +67,7 @@ public class ModuleManager implements Util {
         register(new Timer());
         register(new DiscordRPC());
         register(new PacketLogger());
+        register(new NoSwing());
         //render
         register(new ClickGui());
         register(new FullBright());
