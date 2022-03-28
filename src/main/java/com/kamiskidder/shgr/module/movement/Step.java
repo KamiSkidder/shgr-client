@@ -4,7 +4,6 @@ import com.kamiskidder.shgr.event.player.UpdateWalkingPlayerEvent;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
-import com.kamiskidder.shgr.util.client.LogUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -23,10 +22,9 @@ public class Step extends Module {
 
         if (event.isPre) {
             if (mode.getValue().equalsIgnoreCase("Vanilla")) {
-                mc.player.stepHeight = height.getValue().floatValue();
+                mc.player.stepHeight = height.getValue();
             } else {
                 if (mc.player.collidedHorizontally && PlayerUtil.isPlayerMoving()) {
-                    LogUtil.info("what");
                     double x = mc.player.posX;
                     double y = mc.player.posY;
                     double z = mc.player.posZ;
