@@ -38,6 +38,7 @@ minecraft {
 repositories {
     maven { url = 'https://repo.spongepowered.org/maven' }
     maven { url = 'https://jitpack.io' }
+    mavenCentral()
 }
 
 configurations {
@@ -57,9 +58,6 @@ dependencies {
     embed('club.minnced:java-discord-rpc:v2.0.2') {
         exclude module: 'jna'
     }
-
-    //embed('org.bytedeco:javacv:1.5.7')
-    //embed('org.bytedeco:ffmpeg:5.0-1.5.7:windows-x86_64')
 }
 
 processResources {
