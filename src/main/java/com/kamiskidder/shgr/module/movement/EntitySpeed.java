@@ -4,8 +4,9 @@ import com.kamiskidder.shgr.event.player.PlayerTravelEvent;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
-import com.kamiskidder.shgr.util.entity.EntityType;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
+
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EntitySpeed extends Module {
@@ -21,7 +22,7 @@ public class EntitySpeed extends Module {
         if (nullCheck())
             return;
 
-        if (mc.player.isRiding() && EntityType.isNeutral(mc.player.ridingEntity)) {
+        if (mc.player.isRiding() && !(mc.player.ridingEntity instanceof EntityBoat)) {
             double x = 0;
             double y = mc.player.ridingEntity.motionY;
             double z = 0;
