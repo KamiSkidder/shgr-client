@@ -1,33 +1,32 @@
 package com.kamiskidder.shgr.manager;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
-import com.kamiskidder.shgr.module.combat.Critical;
-import com.kamiskidder.shgr.module.misc.*;
-import com.kamiskidder.shgr.ui.hud.Hud;
-import com.kamiskidder.shgr.ui.hud.component.PingHud;
-import org.lwjgl.input.Keyboard;
-
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
-import com.kamiskidder.shgr.module.combat.*;
-import com.kamiskidder.shgr.module.exploit.*;
+import com.kamiskidder.shgr.module.combat.AutoCrystal;
+import com.kamiskidder.shgr.module.combat.KillAura;
+import com.kamiskidder.shgr.module.combat.Velocity;
+import com.kamiskidder.shgr.module.exploit.PacketFly;
+import com.kamiskidder.shgr.module.exploit.XCarry;
+import com.kamiskidder.shgr.module.misc.*;
 import com.kamiskidder.shgr.module.movement.*;
 import com.kamiskidder.shgr.module.render.*;
+import com.kamiskidder.shgr.ui.hud.Hud;
 import com.kamiskidder.shgr.ui.hud.component.TestHud;
 import com.kamiskidder.shgr.util.Util;
 import com.kamiskidder.shgr.util.client.EventUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
-
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.lwjgl.input.Keyboard;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class ModuleManager implements Util {
     public static ModuleManager INSTANCE;
@@ -40,7 +39,6 @@ public class ModuleManager implements Util {
         register(new KillAura());
         register(new Velocity());
         register(new AutoCrystal());
-        register(new Critical());
         //exploit
         register(new XCarry());
         register(new PacketFly());
@@ -55,6 +53,7 @@ public class ModuleManager implements Util {
         register(new NoPush());
         register(new EntitySpeed());
         register(new Step());
+        register(new Scaffold());
         //misc
         register(new AutoDupe());
         register(new LagbackLogger());
@@ -66,7 +65,8 @@ public class ModuleManager implements Util {
         register(new ChatSuffix());
         register(new FastUse());
         register(new Timer());
-        register(new DiscordRpc());
+        register(new DiscordRPC());
+        register(new PacketLogger());
         //render
         register(new ClickGui());
         register(new FullBright());
@@ -80,9 +80,9 @@ public class ModuleManager implements Util {
         register(new BlockHighlight());
         register(new Freecam());
         register(new AntiCollision());
+        register(new CustomFov());
         //hud
         register(new TestHud());
-        register(new PingHud());
 
         EventUtil.register(this);
     }
