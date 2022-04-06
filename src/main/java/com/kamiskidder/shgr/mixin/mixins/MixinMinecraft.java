@@ -8,14 +8,16 @@ import com.kamiskidder.shgr.util.Util;
 import com.kamiskidder.shgr.util.client.EventUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Minecraft.class)
+@Mixin(value = Minecraft.class)
 public abstract class MixinMinecraft implements Util {
     @Shadow
     public GameSettings gameSettings;

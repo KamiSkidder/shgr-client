@@ -3,6 +3,7 @@ package com.kamiskidder.shgr.manager;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.combat.AutoCrystal;
+import com.kamiskidder.shgr.module.combat.AutoGaiji;
 import com.kamiskidder.shgr.module.combat.KillAura;
 import com.kamiskidder.shgr.module.combat.Velocity;
 import com.kamiskidder.shgr.module.exploit.PacketFly;
@@ -39,6 +40,7 @@ public class ModuleManager implements Util {
         register(new KillAura());
         register(new Velocity());
         register(new AutoCrystal());
+        register(new AutoGaiji());
         //exploit
         register(new XCarry());
         register(new PacketFly());
@@ -148,6 +150,14 @@ public class ModuleManager implements Util {
         Module r = null;
         for (Module module : modules) {
             if (module.getName().equalsIgnoreCase(name)) r = module;
+        }
+        return r;
+    }
+
+    public Module getModuleByClass(Class clazz) {
+        Module r = null;
+        for (Module module : modules) {
+            if (module.getClass().equals(clazz)) r = module;
         }
         return r;
     }

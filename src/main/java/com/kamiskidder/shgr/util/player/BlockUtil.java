@@ -1,6 +1,11 @@
 package com.kamiskidder.shgr.util.player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.kamiskidder.shgr.util.Util;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,12 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class BlockUtil implements Util {
-    public static final List<Block> blackList = Arrays.asList(Blocks.ENDER_CHEST, Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.CRAFTING_TABLE, Blocks.ANVIL, Blocks.BREWING_STAND, Blocks.HOPPER, Blocks.DROPPER, Blocks.DISPENSER, Blocks.TRAPDOOR, Blocks.ENCHANTING_TABLE);
+    public static final List<Block> blackList = Arrays.asList(Blocks.ENDER_CHEST, Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.CRAFTING_TABLE, Blocks.ANVIL, Blocks.BREWING_STAND, Blocks.HOPPER, Blocks.DROPPER, Blocks.DISPENSER, Blocks.TRAPDOOR, Blocks.IRON_TRAPDOOR, Blocks.ENCHANTING_TABLE);
 
     public static Block getBlock(BlockPos pos) {
         return getBlockState(pos).getBlock();
