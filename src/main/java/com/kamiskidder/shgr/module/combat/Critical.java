@@ -8,7 +8,9 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Critical extends Module {
-    public Critical() {super("Critical", Category.COMBAT);}
+    public Critical() {
+        super("Critical", Category.COMBAT);
+    }
 
     @SubscribeEvent
     public void onPacketSend(PacketEvent.Send event) {

@@ -1,12 +1,9 @@
 package com.kamiskidder.shgr.command.commands;
 
 import com.kamiskidder.shgr.command.Command;
-import com.kamiskidder.shgr.manager.ModuleManager;
-import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.combat.AutoGaiji;
 import com.kamiskidder.shgr.util.entity.EntityUtil;
 import net.minecraft.entity.player.EntityPlayer;
-import org.lwjgl.input.Keyboard;
 
 public class TargetCommand extends Command {
     public TargetCommand() {

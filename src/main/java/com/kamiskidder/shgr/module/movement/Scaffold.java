@@ -1,7 +1,5 @@
 package com.kamiskidder.shgr.module.movement;
 
-import java.awt.Color;
-
 import com.kamiskidder.shgr.event.player.UpdateWalkingPlayerEvent;
 import com.kamiskidder.shgr.manager.RotateManager;
 import com.kamiskidder.shgr.module.Category;
@@ -11,7 +9,6 @@ import com.kamiskidder.shgr.util.client.Timer;
 import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
-
 import net.minecraft.block.BlockAir;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -19,17 +16,19 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.awt.*;
+
 public class Scaffold extends Module {
+    private final Timer timer = new Timer();
     public Setting<Boolean> render = register(new Setting("Render", true));
     public Setting<String> mode = register(new Setting("Mode", "Fill", new String[]{"Fill", "Outline", "Both"}, v -> render.getValue()));
     public Setting<Color> color = register(new Setting("Color", new Color(230, 10, 10, 70), v -> !mode.getValue().equalsIgnoreCase("Outline") && render.getValue()));
     public Setting<Float> thickness = register(new Setting("Thickness", 1.5F, 5.0F, 0.1F, v -> !mode.getValue().equalsIgnoreCase("Fill") && render.getValue()));
     public Setting<Color> outlineColor = register(new Setting("Outline Color", new Color(255, 10, 10, 70), v -> !mode.getValue().equalsIgnoreCase("Fill") && render.getValue()));
     private BlockPos placePos = null;
-    private final Timer timer = new Timer();
-    private int crying = 0;
+    private final int crying = 0;
     private boolean reset = false;
-    
+
     public Scaffold() {
         super("Scaffold", Category.MOVEMENT);
     }
@@ -66,7 +65,7 @@ public class Scaffold extends Module {
                     RotateManager.lookAtPos(feet.add(dire.getDirectionVec()));
                     reset = false;
                 }
-                
+
                 if ((int) mc.player.posY > (int) mc.player.lastTickPosY && !PlayerUtil.isPlayerMoving()) {
                     mc.player.setPosition(mc.player.posX, (int) mc.player.posY, mc.player.posZ);
                     mc.player.motionY = 0;

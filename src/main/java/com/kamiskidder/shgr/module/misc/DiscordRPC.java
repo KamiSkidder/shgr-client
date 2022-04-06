@@ -9,11 +9,11 @@ import com.kamiskidder.shgr.module.Module;
 import java.util.Objects;
 
 public class DiscordRPC extends Module {
+    private Thread _thread = null;
+
     public DiscordRPC() {
         super("DiscordRPC", Category.MISC);
     }
-
-    private Thread _thread = null;
 
     @Override
     public void onEnable() {

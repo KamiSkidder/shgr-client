@@ -5,7 +5,6 @@ import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
-
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
