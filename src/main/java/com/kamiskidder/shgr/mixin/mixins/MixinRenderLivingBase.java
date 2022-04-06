@@ -1,5 +1,6 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
+import com.kamiskidder.shgr.module.combat.AutoGaiji;
 import com.kamiskidder.shgr.module.combat.KillAura;
 import com.kamiskidder.shgr.module.render.AntiCollision;
 import com.kamiskidder.shgr.module.render.Freecam;
@@ -55,8 +56,8 @@ public abstract class MixinRenderLivingBase implements Util {
 
     @Inject(method = "doRender(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GlStateManager;disableCull()V"))
     public void setBrightness(EntityLivingBase entity, double x, double y, double z, float entityYaw, float partialTicks, CallbackInfo ci) {
-        if (isTarget(entity)) {
-            Color color = KillAura.INSTANCE.color.getValue();
+        Color color;
+        if ((color = isTarget(entity)) != null) {
             setEntityBrightness(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
         }
     }
@@ -112,19 +113,24 @@ public abstract class MixinRenderLivingBase implements Util {
 
     @Inject(method = "setBrightness(Lnet/minecraft/entity/EntityLivingBase;FZ)Z", at = @At("HEAD"), cancellable = true)
     public void setBrightness(EntityLivingBase entity, float f3, boolean f4, CallbackInfoReturnable<Boolean> cir) {
-        if (isTarget(entity)) {
+        if (isTarget(entity) != null) {
             cir.setReturnValue(false);
         }
     }
 
     @Inject(method = "doRender(Lnet/minecraft/entity/EntityLivingBase;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GlStateManager;setActiveTexture(I)V"), cancellable = true)
     public void unsetBrightness(EntityLivingBase entity, double x, double y, double z, float yaw, float ticks, CallbackInfo ci) {
-        if (isTarget(entity)) {
+        if (isTarget(entity) != null) {
             unsetBrightness();
         }
     }
 
-    private boolean isTarget(EntityLivingBase entity) {
-        return KillAura.INSTANCE.isToggled() && KillAura.INSTANCE.render.getValue() && Objects.equals(entity, KillAura.INSTANCE.target);
+    private Color isTarget(EntityLivingBase entity) {
+        if (KillAura.INSTANCE.isToggled() && KillAura.INSTANCE.render.getValue() && Objects.equals(entity, KillAura.INSTANCE.target))
+            return KillAura.INSTANCE.color.getValue();
+        if (AutoGaiji.INSTANCE.isToggled() && AutoGaiji.INSTANCE.render.getValue() && Objects.equals(entity, AutoGaiji.INSTANCE.target))
+            return AutoGaiji.INSTANCE.color.getValue();
+
+        return null;
     }
 }

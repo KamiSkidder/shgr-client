@@ -13,6 +13,8 @@ import com.kamiskidder.shgr.util.player.PlayerUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
 
 import net.minecraft.block.BlockAir;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -26,6 +28,8 @@ public class Scaffold extends Module {
     private BlockPos placePos = null;
     private final Timer timer = new Timer();
     private int crying = 0;
+    private boolean reset = false;
+    
     public Scaffold() {
         super("Scaffold", Category.MOVEMENT);
     }
@@ -34,8 +38,9 @@ public class Scaffold extends Module {
     public void onUpdate(UpdateWalkingPlayerEvent event) {
         if (nullCheck()) return;
 
-        if (timer.passedD(300) && placePos == null) {
+        if (timer.passedD(100) && placePos == null && !reset) {
             RotateManager.reset();
+            reset = true;
         }
 
         if (event.isPre) {
@@ -55,9 +60,11 @@ public class Scaffold extends Module {
                         return;
                     placePos = fuck;
                     RotateManager.lookAtPos(fuck.add(BlockUtil.getPlaceableSide(fuck).getDirectionVec()));
+                    reset = false;
                 } else {
                     placePos = feet;
                     RotateManager.lookAtPos(feet.add(dire.getDirectionVec()));
+                    reset = false;
                 }
                 
                 if ((int) mc.player.posY > (int) mc.player.lastTickPosY && !PlayerUtil.isPlayerMoving()) {
@@ -69,9 +76,30 @@ public class Scaffold extends Module {
             }
         } else {
             if (placePos != null) {
+                int slot = -1;
+                if (!(mc.player.getHeldItemMainhand().getItem() instanceof ItemBlock)) {
+                    for (int i = 0; i < 9; i++) {
+                        Item item;
+                        if ((item = mc.player.inventory.getStackInSlot(i).getItem()) instanceof ItemBlock
+                                && !BlockUtil.blackList.contains(((ItemBlock) item).getBlock())) {
+                            slot = mc.player.inventory.currentItem;
+                            mc.player.inventory.currentItem = i;
+                            mc.playerController.updateController();
+                            break;
+                        }
+                    }
+
+                    if (slot == -1) return;
+                }
+
                 BlockUtil.placeBlock(placePos, false);
                 placePos = null;
                 timer.reset();
+
+                if (slot != -1) {
+                    mc.player.inventory.currentItem = slot;
+                    mc.playerController.updateController();
+                }
             }
         }
     }

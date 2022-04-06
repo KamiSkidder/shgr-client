@@ -1,6 +1,7 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
 import com.kamiskidder.shgr.event.player.PlayerMoveEvent;
+import com.kamiskidder.shgr.event.player.UpdateLivingPlayerEvent;
 import com.kamiskidder.shgr.event.player.UpdatePlayerEvent;
 import com.kamiskidder.shgr.event.player.UpdateWalkingPlayerEvent;
 import com.kamiskidder.shgr.manager.RotateManager;
@@ -63,6 +64,11 @@ public abstract class MixinEntityPlayerSP extends EntityPlayer {
         EventUtil.post(event);
         if (event.isCanceled())
             ci.cancel();
+    }
+
+    @Inject(method = "onLivingUpdate()V", at = @At("HEAD"))
+    public void onLivingUpdate(CallbackInfo ci) {
+        EventUtil.post(new UpdateLivingPlayerEvent());
     }
 
     @Redirect(method = "onLivingUpdate()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;isHandActive()Z"))
