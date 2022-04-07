@@ -43,6 +43,7 @@ public class AutoGaiji extends Module {
     public Setting<Boolean> render = register(new Setting("Render", true));
     public Setting<Color> color = register(new Setting("Color", new Color(255, 0, 0, 100), v -> render.getValue()));
     public EntityPlayer target = null;
+    public boolean isAiming = false;
     private int randomX, randomZ = 0;
     private boolean annoy = false;
     private boolean clicked = false;
@@ -156,6 +157,7 @@ public class AutoGaiji extends Module {
                 }
             }
 
+            isAiming = true;
             RotateManager.lookAtEntity(target);
 
             if (!mc.player.isHandActive()) {
@@ -164,6 +166,8 @@ public class AutoGaiji extends Module {
 
             if (72000 - mc.player.getItemInUseCount() > 24)
                 mc.playerController.onStoppedUsingItem(mc.player);
+        } else {
+            isAiming = false;
         }
 
         //stopping
