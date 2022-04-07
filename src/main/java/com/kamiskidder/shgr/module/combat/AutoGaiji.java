@@ -1,12 +1,5 @@
 package com.kamiskidder.shgr.module.combat;
 
-import java.awt.Color;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import org.lwjgl.input.Mouse;
-
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.kamiskidder.shgr.event.player.UpdateLivingPlayerEvent;
@@ -21,18 +14,18 @@ import com.kamiskidder.shgr.util.client.MathUtil;
 import com.kamiskidder.shgr.util.entity.EntityUtil;
 import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBow;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.input.Mouse;
+
+import javax.annotation.Nullable;
+import java.awt.*;
+import java.util.List;
 
 public class AutoGaiji extends Module {
     public static AutoGaiji INSTANCE;
@@ -58,7 +51,7 @@ public class AutoGaiji extends Module {
         Scaffold module = (Scaffold) ModuleManager.INSTANCE.getModuleByClass(Scaffold.class);
         if (module.isToggled() && scaffold.getValue())
             module.toggle();
-        
+
         target = null;
         mc.gameSettings.keyBindUseItem.pressed = false;
     }
@@ -213,7 +206,7 @@ public class AutoGaiji extends Module {
                 Entity pointedEntity = null;
                 for (int j = 0; j < list.size(); ++j) {
                     Entity entity1 = list.get(j);
-                    AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow((double) entity1.getCollisionBorderSize());
+                    AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(entity1.getCollisionBorderSize());
                     RayTraceResult raytraceresult = axisalignedbb.calculateIntercept(vec3d, vec3d2);
 
                     if (axisalignedbb.contains(vec3d)) {

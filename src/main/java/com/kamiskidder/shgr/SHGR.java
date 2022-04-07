@@ -19,7 +19,7 @@ import org.lwjgl.opengl.Display;
 public class SHGR implements Util {
     public static final String MOD_ID = "shgr";
     public static final String MOD_NAME = "SHGR Client";
-    public static final String MOD_VERSION = "0.1";
+    public static final String MOD_VERSION = "0.1.1";
 
     public static final String DISPLAY_NAME = "SHGR";
     public static final ChatFormatting DISPLAY_COLOR = ChatFormatting.LIGHT_PURPLE;

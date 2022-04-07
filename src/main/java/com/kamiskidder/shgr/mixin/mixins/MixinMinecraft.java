@@ -26,7 +26,8 @@ public abstract class MixinMinecraft implements Util {
     @Shadow
     public GameSettings gameSettings;
 
-    @Shadow protected abstract void init() throws LWJGLException, IOException;
+    @Shadow
+    protected abstract void init() throws LWJGLException, IOException;
 
     @Inject(method = "runTick()V", at = @At("HEAD"))
     public void onKeyboardUpdate(CallbackInfo ci) {
