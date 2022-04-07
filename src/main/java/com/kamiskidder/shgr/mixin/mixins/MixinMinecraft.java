@@ -48,14 +48,14 @@ public abstract class MixinMinecraft implements Util {
 
     @Redirect(method = "processKeyBinds()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;isHandActive()Z"))
     public boolean isHandActive(EntityPlayerSP instance) {
-        if (AutoGaiji.INSTANCE.isToggled())
+        if (AutoGaiji.INSTANCE.isToggled() && AutoGaiji.INSTANCE.isAiming)
             return false;
         return instance.isHandActive();
     }
 
     @Redirect(method = "processKeyBinds()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;rightClickMouse()V"))
     public void rightClickMouse(Minecraft instance) {
-        if (AutoGaiji.INSTANCE.isToggled())
+        if (AutoGaiji.INSTANCE.isToggled() && AutoGaiji.INSTANCE.isAiming)
             return;
         instance.rightClickMouse();
     }
