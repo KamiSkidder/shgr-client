@@ -3,8 +3,13 @@ package com.kamiskidder.shgr.util.player;
 import com.kamiskidder.shgr.util.Util;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class PlayerUtil implements Util {
+    public static boolean canEntityBeSeen(Entity entityIn) {
+        return BlockUtil.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + (double) mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(entityIn.posX, entityIn.posY + (double) entityIn.getEyeHeight(), entityIn.posZ), false, true, false, 1000) == null;
+    }
+
     public static boolean canSeeEntity(Entity e) {
         return mc.player.canEntityBeSeen(e);
     }

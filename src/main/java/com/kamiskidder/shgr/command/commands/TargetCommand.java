@@ -25,7 +25,7 @@ public class TargetCommand extends Command {
             }
 
             AutoGaiji.INSTANCE.target = player;
-            sendMessage("Target set to " + player.getName());
+            sendMessage("Target set to " + player.getDisplayNameString());
         }
     }
 
