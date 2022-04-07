@@ -20,13 +20,13 @@ import java.awt.*;
 
 public class Scaffold extends Module {
     private final Timer timer = new Timer();
+    private final int crying = 0;
     public Setting<Boolean> render = register(new Setting("Render", true));
     public Setting<String> mode = register(new Setting("Mode", "Fill", new String[]{"Fill", "Outline", "Both"}, v -> render.getValue()));
     public Setting<Color> color = register(new Setting("Color", new Color(230, 10, 10, 70), v -> !mode.getValue().equalsIgnoreCase("Outline") && render.getValue()));
     public Setting<Float> thickness = register(new Setting("Thickness", 1.5F, 5.0F, 0.1F, v -> !mode.getValue().equalsIgnoreCase("Fill") && render.getValue()));
     public Setting<Color> outlineColor = register(new Setting("Outline Color", new Color(255, 10, 10, 70), v -> !mode.getValue().equalsIgnoreCase("Fill") && render.getValue()));
     private BlockPos placePos = null;
-    private final int crying = 0;
     private boolean reset = false;
 
     public Scaffold() {
