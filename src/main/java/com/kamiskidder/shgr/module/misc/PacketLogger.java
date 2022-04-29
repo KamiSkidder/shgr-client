@@ -41,11 +41,11 @@ public class PacketLogger extends Module {
 
     @Override
     public void onEnable() {
-        File loggerDir = new File(String.format("%sPacketLogger", ConfigManager.folder));
+        File loggerDir = new File(String.format("%spacketlogger", ConfigManager.folder));
         loggerDir.mkdir();
         DateTimeFormatter dtformat =
                 DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
-        File txt = new File(String.format("%sPacketLogger/%s.txt", ConfigManager.folder, dtformat.format(LocalDateTime.now())));
+        File txt = new File(String.format("%spacketlogger/%s.txt", ConfigManager.folder, dtformat.format(LocalDateTime.now())));
         path = txt.getPath();
         writer = null;
         try {

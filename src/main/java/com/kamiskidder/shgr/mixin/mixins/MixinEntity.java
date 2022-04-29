@@ -1,7 +1,10 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
+import com.kamiskidder.shgr.module.exploit.TrapBurrow;
 import com.kamiskidder.shgr.module.movement.NoPush;
+import com.kamiskidder.shgr.module.movement.PhaseWalk;
 import com.kamiskidder.shgr.module.render.Freecam;
+import com.kamiskidder.shgr.util.player.PlayerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -39,7 +42,7 @@ public abstract class MixinEntity {
 
     @Redirect(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/AxisAlignedBB;calculateXOffset(Lnet/minecraft/util/math/AxisAlignedBB;D)D"))
     public double calculateXOffset(AxisAlignedBB instance, AxisAlignedBB bb, double d) {
-        if (Freecam.INSTANCE.isToggled())
+        if (isToggled())
             return d;
         return instance.calculateXOffset(bb, d);
     }
@@ -53,8 +56,13 @@ public abstract class MixinEntity {
 
     @Redirect(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/AxisAlignedBB;calculateZOffset(Lnet/minecraft/util/math/AxisAlignedBB;D)D"))
     public double calculateZOffset(AxisAlignedBB instance, AxisAlignedBB bb, double d) {
-        if (Freecam.INSTANCE.isToggled())
+        if (isToggled())
             return d;
         return instance.calculateZOffset(bb, d);
+    }
+
+    private boolean isToggled() {
+        return Freecam.INSTANCE.isToggled()
+                || (PhaseWalk.INSTANCE.isToggled() && (!PhaseWalk.INSTANCE.onlyPhasing.getValue() || PlayerUtil.isPhasing()));
     }
 }

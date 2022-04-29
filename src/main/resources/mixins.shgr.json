@@ -12,6 +12,11 @@
     "MixinMovementInputFromOptions",
     "MixinNetworkManager",
     "MixinRenderLivingBase",
-    "MixinRenderPlayer"
+    "MixinRenderPlayer",
+    "MixinTextureUtil"
+  ],
+  "mixins": [
+    "AccessorSplashProgress",
+    "MixinSplashProgress"
   ]
 }

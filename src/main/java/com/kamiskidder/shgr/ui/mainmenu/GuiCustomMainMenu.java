@@ -1,5 +1,13 @@
 package com.kamiskidder.shgr.ui.mainmenu;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.imageio.ImageIO;
+
+import org.lwjgl.opengl.GL11;
+
 import com.kamiskidder.shgr.SHGR;
 import com.kamiskidder.shgr.manager.FontManager;
 import com.kamiskidder.shgr.manager.MainMenuManager;
@@ -7,6 +15,7 @@ import com.kamiskidder.shgr.ui.font.CFontRenderer;
 import com.kamiskidder.shgr.util.client.MathUtil;
 import com.kamiskidder.shgr.util.render.ColorUtil;
 import com.kamiskidder.shgr.util.render.RenderUtil;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiMultiplayer;
@@ -22,12 +31,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.GuiModList;
-import org.lwjgl.opengl.GL11;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GuiCustomMainMenu extends GuiScreen {
     private static DynamicTexture background = null;
@@ -899,7 +902,7 @@ public class GuiCustomMainMenu extends GuiScreen {
     private DynamicTexture getDynamicTexture(String name) {
         BufferedImage img;
         try {
-            img = ImageIO.read(new File(String.format("%s%s%s", MainMenuManager.folder, name, ".png")));
+            img = ImageIO.read(new File(String.format("%s%s%s", MainMenuManager.mainMenuFolder, name, ".png")));
         } catch (Exception ex) {
             ex.printStackTrace();
             img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);

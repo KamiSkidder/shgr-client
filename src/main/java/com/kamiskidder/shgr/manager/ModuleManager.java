@@ -7,6 +7,7 @@ import com.kamiskidder.shgr.module.combat.AutoGaiji;
 import com.kamiskidder.shgr.module.combat.KillAura;
 import com.kamiskidder.shgr.module.combat.Velocity;
 import com.kamiskidder.shgr.module.exploit.PacketFly;
+import com.kamiskidder.shgr.module.exploit.TrapBurrow;
 import com.kamiskidder.shgr.module.exploit.XCarry;
 import com.kamiskidder.shgr.module.misc.*;
 import com.kamiskidder.shgr.module.movement.*;
@@ -39,11 +40,12 @@ public class ModuleManager implements Util {
         //combat
         register(new KillAura());
         register(new Velocity());
-        register(new AutoCrystal());
+        //register(new AutoCrystal());
         register(new AutoGaiji());
         //exploit
         register(new XCarry());
         register(new PacketFly());
+        register(new TrapBurrow());
         //movement
         register(new NoRotate());
         register(new NoFall());
@@ -56,6 +58,7 @@ public class ModuleManager implements Util {
         register(new EntitySpeed());
         register(new Step());
         register(new Scaffold());
+        register(new PhaseWalk());
         //misc
         register(new AutoDupe());
         register(new LagbackLogger());

@@ -1,5 +1,12 @@
 package com.kamiskidder.shgr.module.combat;
 
+import java.awt.Color;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import org.lwjgl.input.Mouse;
+
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.kamiskidder.shgr.event.player.UpdateLivingPlayerEvent;
@@ -14,18 +21,19 @@ import com.kamiskidder.shgr.util.client.MathUtil;
 import com.kamiskidder.shgr.util.entity.EntityUtil;
 import com.kamiskidder.shgr.util.player.BlockUtil;
 import com.kamiskidder.shgr.util.player.PlayerUtil;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBow;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.input.Mouse;
-
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.List;
 
 public class AutoGaiji extends Module {
     public static AutoGaiji INSTANCE;
@@ -100,7 +108,7 @@ public class AutoGaiji extends Module {
         //75
         if (mc.player.posY < 74 || !mc.player.onGround)
             return;
-
+        
         //bruhmoment
         if (BlockUtil.getBlock(EntityUtil.getEntityPos(target).add(0, 2, 0)) != Blocks.AIR)
             return;
@@ -157,8 +165,10 @@ public class AutoGaiji extends Module {
                 mc.rightClickMouse();
             }
 
-            if (72000 - mc.player.getItemInUseCount() > 24)
+            if (72000 - mc.player.getItemInUseCount() > 24) {
+            	mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY - 0.01, mc.player.posZ, true));
                 mc.playerController.onStoppedUsingItem(mc.player);
+            }
         } else {
             isAiming = false;
         }
