@@ -12,13 +12,19 @@ import java.nio.file.StandardCopyOption;
 
 public class MainMenuManager {
     public static boolean canDrawMainMenu = true;
-    public static String folder = ConfigManager.folder + "mainmenu/";
+    public static String mainMenuFolder = ConfigManager.folder + "mainmenu/";
+    public static String splashScreenFolder = ConfigManager.folder + "splash/";
 
     public void init() {
-        File dir = new File(folder);
+        File dir = new File(mainMenuFolder);
         dir.mkdirs();
 
-        LogUtil.info("Downloading MainMenu assets from github...");
+        LogUtil.info("Downloading assets from github...");
+        downloadMainMenuAssets();
+        LogUtil.info("Loaded MainMenu!");
+    }
+
+    private void downloadMainMenuAssets() {
         downloadFile("background.png");
         downloadFile("cape1.png");
         downloadFile("cape2.png");
@@ -51,16 +57,15 @@ public class MainMenuManager {
         downloadFile("mountain.png");
         downloadFile("pedal1.png");
         downloadFile("pedal2.png");
-        LogUtil.info("Loaded MainMenu!");
     }
 
     private void downloadFile(String file) {
-        if (!Files.exists(Paths.get(folder + file))) {
+        if (!Files.exists(Paths.get(mainMenuFolder + file))) {
             try {
                 URL fetchWebsite = new URL("https://raw.githubusercontent.com/AzulineTeam/MainMenu/main/" + file);
-                Path f = Files.createFile(Paths.get(folder + file));
+                Path f = Files.createFile(Paths.get(mainMenuFolder + file));
                 try (InputStream inputStream = fetchWebsite.openStream()) {
-                    Files.copy(inputStream, Paths.get(folder + file), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(inputStream, Paths.get(mainMenuFolder + file), StandardCopyOption.REPLACE_EXISTING);
                     LogUtil.info("Downloaded " + file);
                 }
             } catch (Exception ex) {

@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,7 +55,7 @@ public class SHGR implements Util {
         EventUtil.register(this);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onGuiOpened(GuiOpenEvent event) {
         if ((event.getGui() instanceof GuiMainMenu || (event.getGui() == null && mc.player == null))
                 && MainMenuManager.canDrawMainMenu) {

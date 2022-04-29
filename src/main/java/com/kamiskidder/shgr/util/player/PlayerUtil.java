@@ -1,8 +1,14 @@
 package com.kamiskidder.shgr.util.player;
 
 import com.kamiskidder.shgr.util.Util;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
+import net.minecraft.block.BlockHopper;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class PlayerUtil implements Util {
@@ -20,6 +26,10 @@ public class PlayerUtil implements Util {
 
     public static double getDistance(BlockPos e) {
         return mc.player.getDistance(e.getX(), e.getY(), e.getZ());
+    }
+    
+    public static double getDistance(Vec3d e) {
+        return mc.player.getDistance(e.x, e.y, e.z);
     }
 
     public static BlockPos getPlayerPos() {
@@ -52,5 +62,29 @@ public class PlayerUtil implements Util {
 
     public static boolean isPlayerMoving() {
         return mc.player.movementInput.moveStrafe != 0.0f || mc.player.movementInput.moveForward != 0.0f;
+    }
+
+    //from Satellite
+    public static boolean isPhasing() {
+        try {
+            AxisAlignedBB playerBoundingBox = (mc.player).getEntityBoundingBox();
+            for (int x = MathHelper.floor(playerBoundingBox.minX); x < MathHelper.floor(playerBoundingBox.maxX) + 1; x++) {
+                for (int y = MathHelper.floor(playerBoundingBox.minY); y < MathHelper.floor(playerBoundingBox.maxY) + 1; y++) {
+                    for (int z = MathHelper.floor(playerBoundingBox.minZ); z < MathHelper.floor(playerBoundingBox.maxZ) + 1; z++) {
+                        Block block = mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
+                        if (block != null && !(block instanceof BlockAir)) {
+                            AxisAlignedBB boundingBox = block.getCollisionBoundingBox(mc.world.getBlockState(new BlockPos(x, y, z)), mc.world, new BlockPos(x, y, z)).offset(x, y, z);
+                            if (block instanceof BlockHopper)
+                                boundingBox = new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1);
+                            if (boundingBox != null && playerBoundingBox.intersects(boundingBox))
+                                return true;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
     }
 }
