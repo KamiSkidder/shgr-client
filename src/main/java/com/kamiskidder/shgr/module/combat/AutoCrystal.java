@@ -234,7 +234,6 @@ public class AutoCrystal extends Module {
                 crystalStream = crystalStream.filter(e -> !EntityUtil.getEntityPos(e).equals(pos.add(0, 1, 0)));
 
             if (!crystalStream.collect(Collectors.toList()).isEmpty()) {
-                LogUtil.info("Crystal already exists");
                 continue;
             }
 
