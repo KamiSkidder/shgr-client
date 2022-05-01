@@ -13,6 +13,7 @@ import com.kamiskidder.shgr.manager.RotateManager;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.Setting;
+import com.kamiskidder.shgr.util.client.LogUtil;
 import com.kamiskidder.shgr.util.client.Timer;
 import com.kamiskidder.shgr.util.entity.EntityUtil;
 import com.kamiskidder.shgr.util.player.BlockUtil;
@@ -51,6 +52,7 @@ public class AutoCrystal extends Module {
     public Setting<Boolean> silentSwitch = register(new Setting("Silent Switch", false));
     public Setting<String> placeSortMode = register(new Setting("Place Sort Mode", "Safest", new String[]{"Nearest", "Safest"}));
     public Setting<Boolean> ignorePlace = register(new Setting("Ignore Place", false));
+    public Setting<Boolean> multiPlace = register(new Setting("Multi Place", false));
     public Setting<Boolean> opPlace = register(new Setting("1.13 Place", false));
 
     public Setting<Boolean> explode = register(new Setting("Explode", true));
@@ -227,10 +229,14 @@ public class AutoCrystal extends Module {
                 continue;
 
             // Check is there crystal
-            List<EntityEnderCrystal> crystalList = mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(pos))
-                    .stream().filter(e -> !EntityUtil.getEntityPos(e).equals(pos.add(0, -1, 0))).collect(Collectors.toList());
-            if (!crystalList.isEmpty())
+            Stream<EntityEnderCrystal> crystalStream = mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(pos.add(0, 1, 0))).stream();
+            if (!multiPlace.getValue())
+                crystalStream = crystalStream.filter(e -> !EntityUtil.getEntityPos(e).equals(pos.add(0, 1, 0)));
+
+            if (!crystalStream.collect(Collectors.toList()).isEmpty()) {
+                LogUtil.info("Crystal already exists");
                 continue;
+            }
 
             Vec3d crystalPos = new Vec3d(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
             double damage = CrystalUtil.calculateDamage(crystalPos, target);
@@ -291,10 +297,10 @@ public class AutoCrystal extends Module {
         if (fade.getValue()) {
             try {
                 boolean found = false;
-                for (int i = 0; i < renderPositions.size(); i++) {
-                    if (renderPositions.get(i).pos.equals(bestPosition)) {
-                        renderPositions.get(i).color = color.getValue();
-                        renderPositions.get(i).otColor = otColor.getValue();
+                for (RenderPos renderPosition : renderPositions) {
+                    if (renderPosition.pos.equals(bestPosition)) {
+                        renderPosition.color = color.getValue();
+                        renderPosition.otColor = otColor.getValue();
                         found = true;
                         break;
                     }
