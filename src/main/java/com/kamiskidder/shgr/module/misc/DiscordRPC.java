@@ -30,7 +30,8 @@ public class DiscordRPC extends Module {
             while (!Thread.currentThread().isInterrupted()) {
                 lib.Discord_RunCallbacks();
                 presence.details = "Enjoying SHGR Client";
-                presence.state = getDetails();
+                presence.state = "discord.gg/BVYNJNdbbk";
+                //presence.state = getDetails();
                 presence.largeImageKey = "logo";
                 presence.largeImageText = SHGR.MOD_VERSION;
                 lib.Discord_UpdatePresence(presence);

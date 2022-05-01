@@ -2,6 +2,8 @@ package com.kamiskidder.shgr.util.player;
 
 import com.kamiskidder.shgr.util.Util;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -27,6 +29,12 @@ public class BlockUtil implements Util {
 
     public static IBlockState getBlockState(BlockPos pos) {
         return mc.world.getBlockState(pos);
+    }
+
+    public static boolean isBlockBreakable(BlockPos pos) {
+        Block block = getBlock(pos);
+        if (block instanceof BlockAir) return false;
+        return !(block instanceof BlockLiquid);
     }
 
     public static EnumFacing getDirection(BlockPos pos) {

@@ -2,10 +2,7 @@ package com.kamiskidder.shgr.manager;
 
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
-import com.kamiskidder.shgr.module.combat.AutoCrystal;
-import com.kamiskidder.shgr.module.combat.AutoGaiji;
-import com.kamiskidder.shgr.module.combat.KillAura;
-import com.kamiskidder.shgr.module.combat.Velocity;
+import com.kamiskidder.shgr.module.combat.*;
 import com.kamiskidder.shgr.module.exploit.PacketFly;
 import com.kamiskidder.shgr.module.exploit.TrapBurrow;
 import com.kamiskidder.shgr.module.exploit.XCarry;
@@ -42,6 +39,8 @@ public class ModuleManager implements Util {
         register(new Velocity());
         //register(new AutoCrystal());
         register(new AutoGaiji());
+        register(new BurrowBreaker());
+        register(new Blocker());
         //exploit
         register(new XCarry());
         register(new PacketFly());

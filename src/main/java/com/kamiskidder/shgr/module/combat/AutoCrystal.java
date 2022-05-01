@@ -7,6 +7,4 @@ public class AutoCrystal extends Module {
     public AutoCrystal() {
         super("AutoCrystal", Category.COMBAT);
     }
-
-
 }
