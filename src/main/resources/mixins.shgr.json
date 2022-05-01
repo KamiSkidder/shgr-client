@@ -11,6 +11,7 @@
     "MixinMinecraft",
     "MixinMovementInputFromOptions",
     "MixinNetworkManager",
+    "MixinPlayerControllerMP",
     "MixinRenderLivingBase",
     "MixinRenderPlayer",
     "MixinTextureUtil"

@@ -276,4 +276,10 @@ public class BlockUtil implements Util {
             return null;
         }
     }
+
+    public static boolean canBreak(BlockPos pos) {
+        IBlockState blockState = mc.world.getBlockState(pos);
+        Block block = blockState.getBlock();
+        return block.getBlockHardness(blockState, mc.world, pos) != -1.0f;
+    }
 }
