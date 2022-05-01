@@ -127,7 +127,7 @@ public class Blocker extends Module {
 
     private EntityEnderCrystal getCrystal(BlockPos pos) {
         return (EntityEnderCrystal) mc.world.loadedEntityList.stream()
-                .filter(e -> e instanceof EntityEnderCrystal && pos.equals(EntityUtil.getEntityPos(e).add(0, -1, 0)))
+                .filter(e -> e instanceof EntityEnderCrystal && !e.isDead && pos.equals(EntityUtil.getEntityPos(e).add(0, -1, 0)))
                 .min(Comparator.comparing(PlayerUtil::getDistance)).orElse(null);
     }
 }
