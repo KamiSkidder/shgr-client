@@ -41,6 +41,7 @@ public class ModuleManager implements Util {
         register(new AutoGaiji());
         register(new BurrowBreaker());
         register(new Blocker());
+        register(new AutoTotem());
         //exploit
         register(new XCarry());
         register(new PacketFly());

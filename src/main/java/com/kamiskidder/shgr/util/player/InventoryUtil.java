@@ -47,6 +47,11 @@ public class InventoryUtil implements Util {
         mc.playerController.updateController();
     }
 
+    public static void moveItem(int item) {
+        mc.playerController.windowClick(mc.player.inventoryContainer.windowId, item, 0, ClickType.QUICK_MOVE, mc.player);
+        mc.playerController.updateController();
+    }
+
     public static void dropItem(int item) {
         mc.playerController.windowClick(mc.player.inventoryContainer.windowId, item, 0, ClickType.THROW, mc.player);
         mc.playerController.updateController();
