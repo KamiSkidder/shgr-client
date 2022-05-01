@@ -37,7 +37,7 @@ public class ModuleManager implements Util {
         //combat
         register(new KillAura());
         register(new Velocity());
-        //register(new AutoCrystal());
+        register(new AutoCrystal());
         register(new AutoGaiji());
         register(new BurrowBreaker());
         register(new Blocker());

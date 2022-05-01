@@ -32,6 +32,11 @@ public class RotateManager implements Util {
         setRotation(angle[0], angle[1]);
     }
 
+    public static void lookAtPos(Vec3d pos) {
+        float[] angle = MathUtil.calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), pos);
+        setRotation(angle[0], angle[1]);
+    }
+
     public static void lookAtEntity(Entity entity) {
         float[] angle = MathUtil.calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), entity.getPositionEyes(mc.getRenderPartialTicks()));
         setRotation(angle[0], angle[1]);

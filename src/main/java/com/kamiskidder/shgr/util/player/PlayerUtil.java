@@ -16,6 +16,10 @@ public class PlayerUtil implements Util {
         return BlockUtil.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + (double) mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(entityIn.posX, entityIn.posY + (double) entityIn.getEyeHeight(), entityIn.posZ), false, true, false, 1000) == null;
     }
 
+    public static boolean canBlockBeSeen(BlockPos pos) {
+        return BlockUtil.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + (double) mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5), false, true, false, 1000) == null;
+    }
+
     public static boolean canSeeEntity(Entity e) {
         return mc.player.canEntityBeSeen(e);
     }
