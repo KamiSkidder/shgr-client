@@ -21,6 +21,8 @@ public class AutoTotem extends Module {
 
     @Override
     public void onTick() {
+        if (nullCheck()) return;
+
         if (shouldTotem() && timer.passedD(delay.getValue())) {
             timer.reset();
             int totem = findTotemSlot();

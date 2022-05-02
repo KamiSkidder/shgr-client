@@ -78,14 +78,17 @@ public class AutoCrystal extends Module {
     public Setting<Color> otColor = register(new Setting("Outline Color", new Color(255, 10, 100, 70)));
     public Setting<Boolean> fade = register(new Setting("Fade", true));
     public Setting<Float> speed = register(new Setting("Speed", 100.0f, 150.0f, 1.0f));
+    public Setting<Color> targetColor = register(new Setting("Target Color", new Color(255, 0, 0, 100), v -> render.getValue()));
 
+    public static AutoCrystal INSTANCE;
+    public EntityPlayer target = null;
     private List<RenderPos> renderPositions;
-    private EntityPlayer target = null;
     private Timer placeTimer, explodeTimer;
     private BlockPos lastPlace = null;
 
     public AutoCrystal() {
         super("AutoCrystal", Category.COMBAT);
+        INSTANCE = this;
     }
 
     @Override

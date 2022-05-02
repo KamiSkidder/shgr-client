@@ -1,5 +1,6 @@
 package com.kamiskidder.shgr.mixin.mixins;
 
+import com.kamiskidder.shgr.module.combat.AutoCrystal;
 import com.kamiskidder.shgr.module.combat.AutoGaiji;
 import com.kamiskidder.shgr.module.combat.KillAura;
 import com.kamiskidder.shgr.module.render.AntiCollision;
@@ -130,6 +131,8 @@ public abstract class MixinRenderLivingBase implements Util {
             return KillAura.INSTANCE.color.getValue();
         if (AutoGaiji.INSTANCE.isToggled() && AutoGaiji.INSTANCE.render.getValue() && Objects.equals(entity, AutoGaiji.INSTANCE.target))
             return AutoGaiji.INSTANCE.color.getValue();
+        if (AutoCrystal.INSTANCE.isToggled() && AutoCrystal.INSTANCE.render.getValue() && Objects.equals(entity, AutoCrystal.INSTANCE.target))
+            return AutoCrystal.INSTANCE.targetColor.getValue();
 
         return null;
     }
