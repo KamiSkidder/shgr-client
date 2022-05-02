@@ -67,8 +67,7 @@ public class AutoCrystal extends Module {
 
     public Setting<Boolean> rotate = register(new Setting("Rotate", false));
     public Setting<Boolean> soundSync = register(new Setting("Sound Sync", true));
-    public Setting<Boolean> placer = register(new Setting("Placer", false, v -> soundSync.getValue()));
-    public Setting<String> targetMode = register(new Setting("Target Mode", "Nearest", new String[]{"Nearest", "Weakest"}));
+    public Setting<String> targetMode = register(new Setting("Target Mode", "Best", new String[]{ "Best", "Nearest", "Weakest" }));
     public Setting<Float> targetRange = register(new Setting("Target Range", 13.0f, 30.0f, 0.5f));
     public Setting<Boolean> focusTarget = register(new Setting("Focus Target", true));
 
@@ -119,7 +118,7 @@ public class AutoCrystal extends Module {
                 if (!PlayerUtil.canBlockBeSeen(new BlockPos(pos)) && range > explodeWallRange.getValue())
                     return;
 
-                double damage = CrystalUtil.calculateDamage(pos, target);
+                double damage = getCrystalDamage(pos);
                 if (damage < explodeMinDamage.getValue())
                     return;
                 double selfDamage = CrystalUtil.calculateDamage(pos, mc.player);
@@ -145,7 +144,6 @@ public class AutoCrystal extends Module {
                 for (EntityEnderCrystal crystal : mc.world.getEntities(EntityEnderCrystal.class, e -> true)) {
                     if (packet.getX() == crystal.posX && packet.getY() == crystal.posY && packet.getZ() == crystal.posZ) {
                         crystal.setDead();
-                        if (placer.getValue()) placeCrystal();
                     }
                 }
             }
@@ -217,9 +215,6 @@ public class AutoCrystal extends Module {
         if (crystal == -1) return;
         EnumHand hand = crystal == 999 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 
-        EntityPlayer target = findTarget();
-        if (target == null) return;
-
         List<BlockPos> placeablePositions = CrystalUtil.placePostions(placeRange.getValue(), opPlace.getValue());
         List<PlacePosition> attachablePositions = new ArrayList<>();
         double maxDamage = 0;
@@ -241,9 +236,10 @@ public class AutoCrystal extends Module {
             }
 
             Vec3d crystalPos = new Vec3d(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
-            double damage = CrystalUtil.calculateDamage(crystalPos, target);
+            double damage = getCrystalDamage(crystalPos);
             if (damage < placeMinDamage.getValue())
                 continue;
+
             double selfDamage = CrystalUtil.calculateDamage(crystalPos, mc.player);
             if (selfDamage > placeMaxSelf.getValue())
                 continue;
@@ -320,9 +316,6 @@ public class AutoCrystal extends Module {
     }
 
     private void explodeCrystal() {
-        EntityPlayer target = findTarget();
-        if (target == null) return;
-
         List<BreakableCrystal> breakableCrystals = new ArrayList<>();
         double maxDamage = 0;
         for (EntityEnderCrystal crystal : mc.world.getEntities(EntityEnderCrystal.class, e -> true)) {
@@ -332,7 +325,7 @@ public class AutoCrystal extends Module {
             if (!PlayerUtil.canSeeEntity(crystal) && range > explodeWallRange.getValue())
                 continue;
 
-            double damage = CrystalUtil.calculateDamage(crystal.getPositionVector(), target);
+            double damage = getCrystalDamage(crystal.getPositionVector());
             if (damage < explodeMinDamage.getValue())
                 continue;
             double selfDamage = CrystalUtil.calculateDamage(crystal.getPositionVector(), mc.player);
@@ -364,6 +357,25 @@ public class AutoCrystal extends Module {
         swing();
 
         if (rotate.getValue()) RotateManager.lookAtPos(new BlockPos(crystal).add(0, -1, 0));
+    }
+
+    private double getCrystalDamage(Vec3d position) {
+        double damage = 0.0;
+        if (targetMode.getValue().equalsIgnoreCase("Best")) {
+            for (EntityPlayer player : EntityUtil.getEnemyPlayers().stream().filter(e -> PlayerUtil.getDistance(e) < placeRange.getValue() * 2).collect(Collectors.toList())) {
+                double playerDmg = CrystalUtil.calculateDamage(position, player);
+                if (damage < playerDmg) {
+                    damage = playerDmg;
+                    target = player;
+                }
+            }
+        } else {
+            target = findTarget();
+            if (target == null) return 0.0;
+            damage = CrystalUtil.calculateDamage(position, target);
+        }
+
+        return damage;
     }
 
     private void swing() {
