@@ -46,6 +46,7 @@ public class ModuleManager implements Util {
         register(new TrapBurrow());
         register(new InstantMine());
         register(new TrapPhase());
+        register(new BowDisabler());
         //movement
         register(new NoRotate());
         register(new NoFall());
