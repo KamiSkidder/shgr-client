@@ -3,10 +3,7 @@ package com.kamiskidder.shgr.manager;
 import com.kamiskidder.shgr.module.Category;
 import com.kamiskidder.shgr.module.Module;
 import com.kamiskidder.shgr.module.combat.*;
-import com.kamiskidder.shgr.module.exploit.InstantMine;
-import com.kamiskidder.shgr.module.exploit.PacketFly;
-import com.kamiskidder.shgr.module.exploit.TrapBurrow;
-import com.kamiskidder.shgr.module.exploit.XCarry;
+import com.kamiskidder.shgr.module.exploit.*;
 import com.kamiskidder.shgr.module.misc.*;
 import com.kamiskidder.shgr.module.movement.*;
 import com.kamiskidder.shgr.module.render.*;
@@ -48,6 +45,7 @@ public class ModuleManager implements Util {
         register(new PacketFly());
         register(new TrapBurrow());
         register(new InstantMine());
+        register(new TrapPhase());
         //movement
         register(new NoRotate());
         register(new NoFall());

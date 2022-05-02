@@ -19,7 +19,7 @@ import java.awt.*;
 import java.util.Comparator;
 
 public class BurrowBreaker extends Module {
-    public Setting<String> mode = register(new Setting("Mode", "Vanilla", new String[] { "Vanilla" , "packet"}));
+    public Setting<String> mode = register(new Setting("Mode", "Packet", new String[] { "Vanilla" , "Packet"}));
     private Setting<Float> range = register(new Setting("Range", 5.0f, 10.0f, 0.5f));
     public Setting<Boolean> autoSwitch = register(new Setting("Auto Switch", true));
     public Setting<Boolean> swingArm = register(new Setting("Swing Arm", true));
