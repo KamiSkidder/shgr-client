@@ -55,7 +55,7 @@ public class Breaker extends Module {
             List<BlockPos> positions = new ArrayList<>();
             for (BlockPos pos : BlockUtil.getSphere(PlayerUtil.getPlayerPos(), range.getValue(),
                     range.getValue().intValue(), false, true, 0)) {
-                if (!BlockUtil.canSeePos(pos) && PlayerUtil.getDistance(pos) > wallRange.getValue())
+                if (!PlayerUtil.canBlockBeSeen(pos) && PlayerUtil.getDistance(pos) > wallRange.getValue())
                     continue;
 
                 Block b = BlockUtil.getBlock(pos);

@@ -40,6 +40,7 @@ public class ModuleManager implements Util {
         register(new BurrowBreaker());
         register(new Blocker());
         register(new AutoTotem());
+        register(new CevBreaker());
         //exploit
         register(new XCarry());
         register(new PacketFly());
