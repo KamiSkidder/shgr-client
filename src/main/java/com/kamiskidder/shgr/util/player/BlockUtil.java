@@ -71,11 +71,6 @@ public class BlockUtil implements Util {
         return circleblocks;
     }
 
-    public static boolean canSeePos(BlockPos pos) {
-        RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.eyeHeight, mc.player.posZ), new Vec3d(pos));
-        return result != null;
-    }
-
     public static BlockPos placeBlock(BlockPos pos, boolean packet) {
         Block block = mc.world.getBlockState(pos).getBlock();
         if (!(block instanceof net.minecraft.block.BlockAir) && !(block instanceof net.minecraft.block.BlockLiquid))
@@ -281,5 +276,14 @@ public class BlockUtil implements Util {
         IBlockState blockState = mc.world.getBlockState(pos);
         Block block = blockState.getBlock();
         return block.getBlockHardness(blockState, mc.world, pos) != -1.0f;
+    }
+
+    public static boolean canRightClickBlock(BlockPos pos) {
+        return isBlockBreakable(pos) && !blackList.contains(getBlock(pos));
+    }
+
+    public static boolean isBlockAir(BlockPos pos) {
+        Block block = getBlock(pos);
+        return block instanceof BlockAir || block instanceof BlockLiquid;
     }
 }
